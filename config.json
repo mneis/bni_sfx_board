@@ -1,0 +1,33 @@
+{
+  "categorias": [
+    {
+      "nome": "Momentos Iniciais",
+      "cor_padrao": "#b91c1c",
+      "botoes": [
+        {
+          "nome": "Sino Inicial",
+          "url": "https://www.myinstants.com/media/sounds/boxing-bell.mp3"
+        },
+        {
+          "nome": "Rufar de Tambores",
+          "url": "https://www.myinstants.com/media/sounds/drum-roll-sound-effect.mp3",
+          "cor": "#1d4ed8"
+        }
+      ]
+    },
+    {
+      "nome": "Controle de Tempo",
+      "cor_padrao": "#d97706",
+      "botoes": [
+        {
+          "nome": "Faltam 10 Segundos",
+          "url": "https://www.myinstants.com/media/sounds/jeopardy-theme-low-quality.mp3"
+        },
+        {
+          "nome": "Tempo Esgotado",
+          "url": "https://www.myinstants.com/media/sounds/buzzer-sound-board.mp3"
+        }
+      ]
+    }
+  ]
+}

@@ -1,31 +1,34 @@
 {
   "categorias": [
     {
-      "nome": "Momentos Iniciais",
-      "cor_padrao": "#b91c1c",
+      "nome": "Animação e Interação",
+      "cor_padrao": "#2563eb",
       "botoes": [
         {
-          "nome": "Sino Inicial",
-          "url": "https://www.myinstants.com/media/sounds/boxing-bell.mp3"
+          "nome": "Bom Diaaaaa!",
+          "url": "https://www.myinstants.com/media/sounds/bom-diaaaaaaaaaaaaaaaa.mp3"
         },
         {
-          "nome": "Rufar de Tambores",
-          "url": "https://www.myinstants.com/media/sounds/drum-roll-sound-effect.mp3",
-          "cor": "#1d4ed8"
+          "nome": "Salva de Palmas",
+          "url": "https://www.myinstants.com/media/sounds/salma-de-palmas.mp3"
+        },
+        {
+          "nome": "Rufem os Tambores",
+          "url": "https://www.myinstants.com/media/sounds/rufem-os-tambores.mp3"
         }
       ]
     },
     {
-      "nome": "Controle de Tempo",
-      "cor_padrao": "#d97706",
+      "nome": "Negócios Fechados (TYFCB)",
+      "cor_padrao": "#16a34a",
       "botoes": [
         {
-          "nome": "Faltam 10 Segundos",
-          "url": "https://www.myinstants.com/media/sounds/jeopardy-theme-low-quality.mp3"
+          "nome": "Ka-Ching (Caixa)",
+          "url": "https://www.myinstants.com/media/sounds/kaching-sound-fx.mp3"
         },
         {
-          "nome": "Tempo Esgotado",
-          "url": "https://www.myinstants.com/media/sounds/buzzer-sound-board.mp3"
+          "nome": "Money / Moedas",
+          "url": "https://www.myinstants.com/media/sounds/money-sound.mp3"
         }
       ]
     }

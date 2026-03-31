@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('soundboard-container');
 
-    // Busca o arquivo JSON com as configurações
     fetch('config.json')
         .then(response => response.json())
         .then(data => renderSoundboard(data))
@@ -9,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderSoundboard(data) {
         data.categorias.forEach(categoria => {
-            // Cria a seção da categoria
             const section = document.createElement('section');
             section.className = 'categoria';
 
@@ -20,22 +18,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const grid = document.createElement('div');
             grid.className = 'grid-botoes';
 
-            // Cria os botões para cada som
             categoria.botoes.forEach(botaoConfigs => {
                 const btn = document.createElement('button');
                 btn.className = 'botao-som';
                 btn.textContent = botaoConfigs.nome;
-                
-                // Usa a cor específica do botão ou a cor padrão da categoria
                 btn.style.backgroundColor = botaoConfigs.cor || categoria.cor_padrao || '#555';
 
-                // Prepara o áudio
                 const audio = new Audio(botaoConfigs.url);
 
+                // Quando o áudio terminar de tocar naturalmente, remove a animação
+                audio.addEventListener('ended', () => {
+                    btn.classList.remove('botao-tocando');
+                });
+
                 btn.addEventListener('click', () => {
-                    // Zera o tempo para poder tocar de novo mesmo se já estiver tocando
-                    audio.currentTime = 0; 
-                    audio.play().catch(e => console.error("Erro ao reproduzir áudio:", e));
+                    // Verifica se o áudio está tocando (não está pausado e já começou)
+                    if (!audio.paused && audio.currentTime > 0) {
+                        // Se está tocando: Pausa, zera o tempo e remove o efeito visual
+                        audio.pause();
+                        audio.currentTime = 0;
+                        btn.classList.remove('botao-tocando');
+                    } else {
+                        // Se não está tocando: Zera o tempo, dá o play e adiciona o efeito visual
+                        audio.currentTime = 0;
+                        audio.play().catch(e => console.error("Erro ao reproduzir áudio:", e));
+                        btn.classList.add('botao-tocando');
+                    }
                 });
 
                 grid.appendChild(btn);

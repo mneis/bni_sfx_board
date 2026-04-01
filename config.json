@@ -1,34 +1,58 @@
 {
   "categorias": [
     {
-      "nome": "Animação e Interação",
+      "nome": "Abertura e Energia",
       "cor_padrao": "#2563eb",
       "botoes": [
         {
-          "nome": "Bom Diaaaaa!",
-          "url": "https://www.myinstants.com/media/sounds/bom-diaaaaaaaaaaaaaaaa.mp3"
-        },
-        {
-          "nome": "Salva de Palmas",
-          "url": "https://www.myinstants.com/media/sounds/salma-de-palmas.mp3"
+          "nome": "Tada (Entrada)",
+          "url": "audio/tadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.mp3"
         },
         {
           "nome": "Rufem os Tambores",
-          "url": "https://www.myinstants.com/media/sounds/y2mate_YpWYqZD.mp3"
+          "url": "audio/drum-roll-gaming-sound-effect-hd.mp3"
+        },
+        {
+          "nome": "Salva de Palmas",
+          "url": "audio/salma-de-palmas.mp3"
         }
       ]
     },
     {
-      "nome": "Negócios Fechados (TYFCB)",
+      "nome": "Transições e Ritmo",
+      "cor_padrao": "#0ea5e9",
+      "botoes": [
+        {
+          "nome": "Whoosh (Troca de Momento)",
+          "url": "audio/transition-whoosh.mp3"
+        },
+        {
+          "nome": "Record Scratch (Pausa)",
+          "url": "audio/record-scratch-2_Eug9i1R.mp3"
+        }
+      ]
+    },
+    {
+      "nome": "Negócios e TYFCB",
       "cor_padrao": "#16a34a",
       "botoes": [
         {
-          "nome": "Ka-Ching (Caixa)",
-          "url": "https://www.myinstants.com/media/sounds/kaching-sound-fx.mp3"
+          "nome": "Ka-Ching (Negócio Fechado)",
+          "url": "audio/kaching-sound-fx.mp3"
         },
         {
-          "nome": "Money / Moedas",
-          "url": "https://www.myinstants.com/media/sounds/donate-sound-here-comes-the-money.mp3"
+          "nome": "Money (Entrada de Valor)",
+          "url": "audio/donate-sound-here-comes-the-money.mp3"
+        }
+      ]
+    },
+    {
+      "nome": "Celebração Final",
+      "cor_padrao": "#f59e0b",
+      "botoes": [
+        {
+          "nome": "Tema da Vitória",
+          "url": "audio/ayrton-senna-tema-da-vitoria.mp3"
         }
       ]
     }

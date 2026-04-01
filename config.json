@@ -1,57 +1,61 @@
 {
   "categorias": [
     {
-      "nome": "Abertura e Energia",
+      "id": "opening_energy",
       "cor_padrao": "#2563eb",
       "botoes": [
         {
-          "nome": "Tada (Entrada)",
+          "id": "tada_entry",
           "url": "audio/tadaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.mp3"
         },
         {
-          "nome": "Rufem os Tambores",
+          "id": "drum_roll",
           "url": "audio/drum-roll-gaming-sound-effect-hd.mp3"
         },
         {
-          "nome": "Salva de Palmas",
+          "id": "drum_roll_long",
+          "url": "audio/drum-roll-long.mp3"
+        },
+        {
+          "id": "applause",
           "url": "audio/salma-de-palmas.mp3"
         }
       ]
     },
     {
-      "nome": "Transições e Ritmo",
+      "id": "transitions_pace",
       "cor_padrao": "#0ea5e9",
       "botoes": [
         {
-          "nome": "Whoosh (Troca de Momento)",
+          "id": "whoosh_transition",
           "url": "audio/transition-whoosh.mp3"
         },
         {
-          "nome": "Record Scratch (Pausa)",
+          "id": "record_scratch",
           "url": "audio/record-scratch-2_Eug9i1R.mp3"
         }
       ]
     },
     {
-      "nome": "Negócios e TYFCB",
+      "id": "business_tyfcb",
       "cor_padrao": "#16a34a",
       "botoes": [
         {
-          "nome": "Ka-Ching (Negócio Fechado)",
+          "id": "kaching_deal",
           "url": "audio/kaching-sound-fx.mp3"
         },
         {
-          "nome": "Money (Entrada de Valor)",
+          "id": "money_value",
           "url": "audio/donate-sound-here-comes-the-money.mp3"
         }
       ]
     },
     {
-      "nome": "Celebração Final",
+      "id": "final_celebration",
       "cor_padrao": "#f59e0b",
       "botoes": [
         {
-          "nome": "Tema da Vitória",
+          "id": "victory_theme",
           "url": "audio/ayrton-senna-tema-da-vitoria.mp3"
         }
       ]

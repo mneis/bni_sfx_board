@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soundboard BNI</title>
+    <title>BNI Soundboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Soundboard BNI</h1>
+    <header class="topo">
+        <div>
+            <h1 id="title">BNI Soundboard</h1>
+            <p id="subtitle" class="subtitulo">Live audio operation for BNI meetings</p>
+        </div>
+        <div class="controles-globais">
+            <label class="language-switch" for="locale-selector">
+                <span id="language-label">Language</span>
+                <select id="locale-selector">
+                    <option value="enus">English (US)</option>
+                    <option value="ptbr">Português (BR)</option>
+                </select>
+            </label>
+        </div>
     </header>
-    
+
+    <section class="quick-actions" id="quick-actions">
+        <div class="quick-header">
+            <h2 id="quick-title">Quick Actions</h2>
+            <div class="quick-controls">
+                <button id="quick-edit" class="botao-secundario">Edit</button>
+                <button id="quick-toggle" class="botao-secundario">Minimize</button>
+            </div>
+        </div>
+        <p id="quick-help" class="quick-help">Shortcuts for your most used effects during the meeting.</p>
+        <div id="quick-actions-grid" class="grid-botoes grid-quick"></div>
+    </section>
+
     <main id="soundboard-container">
-        <!-- O JS vai injetar os botões aqui -->
     </main>
+
+    <section class="control-dock" aria-label="Live Controls">
+        <button id="stop-all" class="botao-controle">Stop All</button>
+        <label class="controle-volume" for="volume-master">
+            <span id="volume-label">Volume</span>
+            <input id="volume-master" type="range" min="0" max="1" step="0.05" value="1">
+        </label>
+        <span id="now-playing" class="agora-tocando">Now Playing: -</span>
+    </section>
 
     <script src="app.js"></script>
 </body>

@@ -1,0 +1,36 @@
+{
+  "ui": {
+    "title": "Soundboard BNI",
+    "subtitle": "Operação de áudio ao vivo para reuniões BNI",
+    "language": "Idioma",
+    "stopAll": "Parar Tudo",
+    "volume": "Volume",
+    "nowPlaying": "Tocando Agora",
+    "none": "-",
+    "quickActions": "Ações Rápidas",
+    "quickHelp": "Atalhos dos efeitos mais usados durante a reunião.",
+    "quickEdit": "Editar",
+    "quickDone": "Concluir",
+    "quickMinimize": "Minimizar",
+    "quickExpand": "Expandir",
+    "pin": "Fixar",
+    "unpin": "Remover"
+  },
+  "categories": {
+    "opening_energy": "Abertura e Energia",
+    "transitions_pace": "Transições e Ritmo",
+    "business_tyfcb": "Negócios e TYFCB",
+    "final_celebration": "Celebração Final"
+  },
+  "buttons": {
+    "tada_entry": "Tada (Entrada)",
+    "drum_roll": "Rufem os Tambores (Curto)",
+    "drum_roll_long": "Rufem os Tambores (Longo)",
+    "applause": "Salva de Palmas",
+    "whoosh_transition": "Whoosh (Troca de Momento)",
+    "record_scratch": "Record Scratch (Pausa)",
+    "kaching_deal": "Ka-Ching (Negócio Fechado)",
+    "money_value": "Money (Entrada de Valor)",
+    "victory_theme": "Tema da Vitória"
+  }
+}

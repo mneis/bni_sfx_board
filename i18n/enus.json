@@ -1,0 +1,36 @@
+{
+  "ui": {
+    "title": "BNI Soundboard",
+    "subtitle": "Live audio operation for BNI meetings",
+    "language": "Language",
+    "stopAll": "Stop All",
+    "volume": "Volume",
+    "nowPlaying": "Now Playing",
+    "none": "-",
+    "quickActions": "Quick Actions",
+    "quickHelp": "Shortcuts for your most used effects during the meeting.",
+    "quickEdit": "Edit",
+    "quickDone": "Done",
+    "quickMinimize": "Minimize",
+    "quickExpand": "Expand",
+    "pin": "Pin",
+    "unpin": "Unpin"
+  },
+  "categories": {
+    "opening_energy": "Opening and Energy",
+    "transitions_pace": "Transitions and Pace",
+    "business_tyfcb": "Business and TYFCB",
+    "final_celebration": "Final Celebration"
+  },
+  "buttons": {
+    "tada_entry": "Tada (Entrance)",
+    "drum_roll": "Drum Roll (Short)",
+    "drum_roll_long": "Drum Roll (Long)",
+    "applause": "Applause",
+    "whoosh_transition": "Whoosh (Transition)",
+    "record_scratch": "Record Scratch (Pause)",
+    "kaching_deal": "Ka-Ching (Closed Deal)",
+    "money_value": "Money (Value In)",
+    "victory_theme": "Victory Theme"
+  }
+}

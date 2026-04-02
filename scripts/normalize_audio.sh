@@ -8,6 +8,7 @@ TARGET_I="-16"
 TARGET_TP="-1.5"
 TARGET_LRA="11"
 DRY_RUN=false
+FORCE=false
 
 usage() {
   cat <<USAGE
@@ -22,11 +23,13 @@ Options:
   --target-tp <value>    True peak in dBTP (default: -1.5)
   --target-lra <value>   Loudness range (default: 11)
   --dry-run              Show what would be processed
+  --force                Reprocess all files (ignore skip cache)
   -h, --help             Show this help
 
 Behavior:
   - In-place normalization (replaces original files)
   - Safe to rerun: already normalized/unchanged files are skipped using a state file
+  - Use --force only when you intentionally want to re-normalize everything
 USAGE
 }
 
@@ -50,6 +53,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --dry-run)
       DRY_RUN=true
+      shift
+      ;;
+    --force)
+      FORCE=true
       shift
       ;;
     -h|--help)
@@ -141,7 +148,7 @@ while IFS= read -r -d '' input_file; do
   existing_hash="${existing_state%%$'\t'*}"
   existing_profile="${existing_state#*$'\t'}"
 
-  if [[ "$existing_hash" == "$current_hash" && "$existing_profile" == "$PROFILE" ]]; then
+  if [[ "$FORCE" != true && "$existing_hash" == "$current_hash" && "$existing_profile" == "$PROFILE" ]]; then
     echo "[skip] $rel_path (already normalized for this profile)"
     skipped=$((skipped + 1))
     continue

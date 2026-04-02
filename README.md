@@ -82,6 +82,9 @@ bash scripts/normalize_audio.sh --dry-run
 
 # Custom target profile
 bash scripts/normalize_audio.sh --target-i -16 --target-tp -1.5 --target-lra 11
+
+# Force reprocessing of all files (use sparingly)
+bash scripts/normalize_audio.sh --force
 ```
 
 Notes:
@@ -89,6 +92,7 @@ Notes:
 - The script normalizes in-place (replaces original files).
 - It writes a state file at `audio/.loudnorm-state.tsv`.
 - Safe to rerun on the entire folder: unchanged files are skipped automatically.
+- Keep `audio/.loudnorm-state.tsv` versioned in git to preserve skip history across machines and CI.
 
 ## Re-running Normalization
 
@@ -97,6 +101,7 @@ You can run normalization multiple times over the full folder workflow, especial
 - Recommended: always run the script over the full folder.
 - Already-normalized files with unchanged content are skipped by state tracking.
 - New or changed files are processed.
+- Use `--force` only when you intentionally want to re-normalize every file.
 
 Important:
 

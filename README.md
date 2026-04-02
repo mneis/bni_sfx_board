@@ -66,6 +66,43 @@ python3 -m http.server 8000
 
 Then open: `http://localhost:8000`
 
+## Audio Normalization (ffmpeg + loudnorm)
+
+Use the script below to normalize all audio files in `audio/` with `loudnorm` in 2-pass mode:
+
+```bash
+bash scripts/normalize_audio.sh
+```
+
+Useful options:
+
+```bash
+# Preview only (no changes)
+bash scripts/normalize_audio.sh --dry-run
+
+# Custom target profile
+bash scripts/normalize_audio.sh --target-i -16 --target-tp -1.5 --target-lra 11
+```
+
+Notes:
+
+- The script normalizes in-place (replaces original files).
+- It writes a state file at `audio/.loudnorm-state.tsv`.
+- Safe to rerun on the entire folder: unchanged files are skipped automatically.
+
+## Re-running Normalization
+
+You can run normalization multiple times over the full folder workflow, especially when adding new files.
+
+- Recommended: always run the script over the full folder.
+- Already-normalized files with unchanged content are skipped by state tracking.
+- New or changed files are processed.
+
+Important:
+
+- Re-normalizing the same lossy file repeatedly is generally not ideal because each re-encode can add quality loss.
+- This script avoids repeated re-encoding for unchanged files, which is the right approach for your use case.
+
 ## Goal
 
 Support a more professional, engaging, and well-timed audio experience during BNI events.

@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('soundboard-container');
+    const controlDock = document.querySelector('.control-dock');
+    const dockHandle = document.getElementById('dock-handle');
     const quickActionsSection = document.getElementById('quick-actions');
     const quickActionsGrid = document.getElementById('quick-actions-grid');
     const stopAllButton = document.getElementById('stop-all');
     const volumeSlider = document.getElementById('volume-master');
+    const volumeDownButton = document.getElementById('volume-down');
+    const volumeUpButton = document.getElementById('volume-up');
     const localeSelector = document.getElementById('locale-selector');
     const quickEditButton = document.getElementById('quick-edit');
     const quickToggleButton = document.getElementById('quick-toggle');
@@ -17,7 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
         masterVolume: volumeSlider ? Number(volumeSlider.value) : 1,
         quickActionIds: new Set(loadQuickActions()),
         quickEditing: false,
-        quickMinimized: localStorage.getItem('quick-minimized') === '1'
+        quickMinimized: localStorage.getItem('quick-minimized') === '1',
+        dockPosition: loadDockPosition(),
+        drag: {
+            active: false,
+            pointerId: null,
+            offsetX: 0,
+            offsetY: 0,
+            width: null
+        },
+        dockTapLastAt: 0
     };
 
     if (localeSelector) {
@@ -38,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Failed to load app resources:', error));
 
     function bindControls() {
+        applyMasterVolume(state.masterVolume);
+        setupDockDrag();
+
         if (stopAllButton) {
             stopAllButton.addEventListener('click', () => {
                 stopAllAudio();
@@ -46,10 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (volumeSlider) {
             volumeSlider.addEventListener('input', () => {
-                state.masterVolume = Number(volumeSlider.value);
-                state.entries.forEach(entry => {
-                    entry.audio.volume = state.masterVolume;
-                });
+                applyMasterVolume(Number(volumeSlider.value));
+            });
+        }
+
+        if (volumeDownButton) {
+            volumeDownButton.addEventListener('click', () => {
+                const next = Math.max(0, state.masterVolume - 0.1);
+                applyMasterVolume(next);
+            });
+        }
+
+        if (volumeUpButton) {
+            volumeUpButton.addEventListener('click', () => {
+                const next = Math.min(1, state.masterVolume + 0.1);
+                applyMasterVolume(next);
             });
         }
 
@@ -77,6 +104,114 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateStaticTexts();
             });
         }
+    }
+
+    function setupDockDrag() {
+        if (!controlDock || !dockHandle) return;
+
+        applyDockPosition();
+
+        dockHandle.addEventListener('pointerdown', event => {
+            event.preventDefault();
+            const rect = controlDock.getBoundingClientRect();
+            state.drag.active = true;
+            state.drag.pointerId = event.pointerId;
+            state.drag.offsetX = event.clientX - rect.left;
+            state.drag.offsetY = event.clientY - rect.top;
+            state.drag.width = Math.round(rect.width);
+
+            controlDock.classList.add('is-floating', 'is-dragging');
+            // Anchor current visual position before switching from right/bottom to left/top,
+            // preventing the first-drag jump to x=0 when no saved position exists yet.
+            controlDock.style.left = `${Math.round(rect.left)}px`;
+            controlDock.style.top = `${Math.round(rect.top)}px`;
+            controlDock.style.width = `${state.drag.width}px`;
+            controlDock.style.right = 'auto';
+            controlDock.style.bottom = 'auto';
+            state.dockPosition = { x: Math.round(rect.left), y: Math.round(rect.top) };
+            dockHandle.setPointerCapture(event.pointerId);
+        });
+
+        dockHandle.addEventListener('pointermove', event => {
+            if (!state.drag.active || state.drag.pointerId !== event.pointerId) return;
+            event.preventDefault();
+
+            const next = clampDockPosition(
+                event.clientX - state.drag.offsetX,
+                event.clientY - state.drag.offsetY
+            );
+
+            state.dockPosition = next;
+            applyDockPosition();
+        });
+
+        const finishDrag = event => {
+            if (!state.drag.active || state.drag.pointerId !== event.pointerId) return;
+            state.drag.active = false;
+            state.drag.pointerId = null;
+            controlDock.classList.remove('is-dragging');
+            localStorage.setItem('dock-position', JSON.stringify(state.dockPosition));
+        };
+
+        dockHandle.addEventListener('pointerup', finishDrag);
+        dockHandle.addEventListener('pointercancel', finishDrag);
+
+        dockHandle.addEventListener('click', () => {
+            const now = Date.now();
+            const isDoubleTap = now - state.dockTapLastAt <= 350;
+            state.dockTapLastAt = now;
+            if (isDoubleTap) {
+                resetDockPosition();
+            }
+        });
+
+        dockHandle.addEventListener('dblclick', () => {
+            resetDockPosition();
+        });
+
+        window.addEventListener('resize', () => {
+            if (!state.dockPosition) return;
+            state.dockPosition = clampDockPosition(state.dockPosition.x, state.dockPosition.y);
+            applyDockPosition();
+            localStorage.setItem('dock-position', JSON.stringify(state.dockPosition));
+        });
+    }
+
+    function resetDockPosition() {
+        localStorage.removeItem('dock-position');
+        state.dockPosition = null;
+        state.drag.active = false;
+        state.drag.pointerId = null;
+        state.drag.width = null;
+        controlDock.classList.remove('is-floating', 'is-dragging');
+        controlDock.style.removeProperty('left');
+        controlDock.style.removeProperty('top');
+        controlDock.style.removeProperty('width');
+        controlDock.style.removeProperty('right');
+        controlDock.style.removeProperty('bottom');
+    }
+
+    function applyDockPosition() {
+        if (!controlDock || !state.dockPosition) return;
+        const next = clampDockPosition(state.dockPosition.x, state.dockPosition.y);
+        state.dockPosition = next;
+        controlDock.classList.add('is-floating');
+        controlDock.style.left = `${next.x}px`;
+        controlDock.style.top = `${next.y}px`;
+        controlDock.style.right = 'auto';
+        controlDock.style.bottom = 'auto';
+    }
+
+    function clampDockPosition(x, y) {
+        const margin = 8;
+        const dockWidth = controlDock ? controlDock.offsetWidth : 320;
+        const dockHeight = controlDock ? controlDock.offsetHeight : 180;
+        const maxX = Math.max(margin, window.innerWidth - dockWidth - margin);
+        const maxY = Math.max(margin, window.innerHeight - dockHeight - margin);
+        return {
+            x: Math.min(Math.max(margin, Math.round(x)), maxX),
+            y: Math.min(Math.max(margin, Math.round(y)), maxY)
+        };
     }
 
     function renderEverything() {
@@ -209,11 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleEntry(entry) {
-        if (state.currentEntry === entry && isPlaying(entry.audio)) {
-            stopEntry(entry);
-            return;
-        }
-
         playEntryExclusive(entry);
     }
 
@@ -255,6 +385,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nowPlaying) {
             nowPlaying.textContent = `${t('ui.nowPlaying', 'Now Playing')}: ${label}`;
         }
+    }
+
+    function applyMasterVolume(nextValue) {
+        const normalized = Math.max(0, Math.min(1, Number(nextValue.toFixed(2))));
+        state.masterVolume = normalized;
+        if (volumeSlider) {
+            volumeSlider.value = String(normalized);
+            volumeSlider.style.setProperty('--volume-percent', `${Math.round(normalized * 100)}%`);
+        }
+        state.entries.forEach(entry => {
+            entry.audio.volume = state.masterVolume;
+        });
     }
 
     function setEntryPlayingState(entry, isPlayingNow) {
@@ -304,10 +446,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return ['drum_roll', 'kaching_deal', 'victory_theme'].includes(buttonId);
     }
 
-    function isPlaying(audio) {
-        return !audio.paused && audio.currentTime > 0;
-    }
-
     function setText(elementId, value) {
         const el = document.getElementById(elementId);
         if (el) el.textContent = value;
@@ -332,6 +470,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return defaultIds;
         } catch {
             return defaultIds;
+        }
+    }
+
+    function loadDockPosition() {
+        const raw = localStorage.getItem('dock-position');
+        if (!raw) return null;
+        try {
+            const parsed = JSON.parse(raw);
+            if (
+                typeof parsed === 'object' &&
+                parsed !== null &&
+                Number.isFinite(parsed.x) &&
+                Number.isFinite(parsed.y)
+            ) {
+                return { x: parsed.x, y: parsed.y };
+            }
+            return null;
+        } catch {
+            return null;
         }
     }
 });

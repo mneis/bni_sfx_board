@@ -31,6 +31,14 @@
           "url": "audio/transition-whoosh.mp3"
         },
         {
+          "id": "idea_share",
+          "url": "audio/ideia-plim.mp3"
+        },
+        {
+          "id": "teaching_moment",
+          "url": "audio/magic-idea.mp3"
+        },
+        {
           "id": "record_scratch",
           "url": "audio/record-scratch-2_Eug9i1R.mp3"
         }

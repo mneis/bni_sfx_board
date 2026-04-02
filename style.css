@@ -66,14 +66,15 @@ h1 {
 
 .control-dock {
     position: fixed;
-    left: 16px;
-    right: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(980px, calc(100vw - 24px));
     bottom: 14px;
     z-index: 30;
     display: grid;
-    grid-template-columns: auto minmax(240px, 320px) minmax(230px, 1fr);
+    grid-template-columns: auto minmax(320px, 420px) minmax(200px, 1fr);
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)), var(--panel-color);
     border: 1px solid var(--panel-border);
     border-radius: 12px;
@@ -82,13 +83,61 @@ h1 {
     backdrop-filter: blur(8px);
 }
 
-.language-switch,
-.controle-volume {
+.dock-handle {
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #93c5fd;
+    border-radius: 8px;
+    height: 30px;
+    width: 54px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+
+.dock-handle:active {
+    cursor: grabbing;
+}
+
+.control-dock.is-dragging {
+    opacity: 0.95;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5);
+}
+
+.control-dock.is-floating {
+    z-index: 40;
+    transform: none;
+}
+
+.control-main {
+    display: grid;
+    grid-template-columns: max-content minmax(260px, 340px);
+    align-items: center;
+    gap: 14px;
+}
+
+.language-switch {
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 700;
     color: var(--text-color);
+}
+
+.controle-volume {
+    display: grid;
+    grid-template-columns: auto minmax(180px, 1fr);
+    align-items: center;
+    column-gap: 10px;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.controle-volume > span {
+    align-self: center;
+    line-height: 1;
 }
 
 .language-switch select,
@@ -105,7 +154,82 @@ h1 {
 }
 
 .controle-volume input {
-    width: 120px;
+    width: 100%;
+    height: 44px;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    --volume-percent: 100%;
+}
+
+.volume-control-row {
+    display: grid;
+    grid-template-columns: 42px minmax(120px, 1fr) 42px;
+    align-items: center;
+    gap: 8px;
+    width: min(100%, 340px);
+}
+
+.botao-volume {
+    height: 42px;
+    width: 42px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #e2e8f0;
+    font-size: 1.15rem;
+    font-weight: 900;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.botao-volume:hover {
+    filter: brightness(1.1);
+}
+
+.controle-volume input::-webkit-slider-runnable-track {
+    height: 12px;
+    background: linear-gradient(
+        90deg,
+        #22d3ee 0,
+        #22d3ee var(--volume-percent),
+        #1f2937 var(--volume-percent),
+        #1f2937 100%
+    );
+    border-radius: 999px;
+}
+
+.controle-volume input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: #22d3ee;
+    border: 2px solid #0f172a;
+    margin-top: -9px;
+}
+
+.controle-volume input::-moz-range-track {
+    height: 12px;
+    background: #1f2937;
+    border-radius: 999px;
+}
+
+.controle-volume input::-moz-range-progress {
+    height: 12px;
+    background: #22d3ee;
+    border-radius: 999px;
+}
+
+.controle-volume input::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: #22d3ee;
+    border: 2px solid #0f172a;
 }
 
 .botao-controle,
@@ -122,6 +246,13 @@ h1 {
 
 .botao-controle {
     background: linear-gradient(180deg, #ef4444, #dc2626);
+    min-height: 48px;
+    min-width: 116px;
+    width: 116px;
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+    touch-action: manipulation;
+    justify-self: start;
 }
 
 .botao-secundario {
@@ -135,7 +266,7 @@ h1 {
 }
 
 .agora-tocando {
-    display: inline-block;
+    display: block;
     font-weight: 700;
     color: #67e8f9;
     background: rgba(8, 47, 73, 0.65);
@@ -143,9 +274,12 @@ h1 {
     padding: 8px 10px;
     border-radius: 8px;
     min-width: 0;
+    width: 100%;
+    min-height: 44px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 26px;
 }
 
 .quick-actions {
@@ -325,15 +459,36 @@ h1 {
     .control-dock {
         left: 10px;
         right: 10px;
+        width: auto;
+        transform: none;
         bottom: 10px;
         grid-template-columns: 1fr;
         padding: 10px;
         gap: 8px;
     }
 
+    .control-main {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .dock-handle {
+        width: 100%;
+    }
+
+    .botao-controle {
+        width: 100%;
+        min-width: 0;
+    }
+
     .controle-volume {
         width: 100%;
-        justify-content: space-between;
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+
+    .volume-control-row {
+        width: 100%;
     }
 
     .agora-tocando {
@@ -363,5 +518,58 @@ h1 {
     .botao-major {
         min-height: 98px;
         font-size: 0.98rem;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+    .control-dock {
+        left: auto;
+        right: 10px;
+        top: 10px;
+        bottom: auto;
+        width: min(320px, 42vw);
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        gap: 10px;
+        transform: none;
+        max-height: min(86vh, 420px);
+        overflow-y: auto;
+    }
+
+    .control-main {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .dock-handle {
+        width: 100%;
+    }
+
+    .botao-controle {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .controle-volume {
+        width: 100%;
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+
+    .controle-volume input {
+        width: 100%;
+    }
+
+    .volume-control-row {
+        width: 100%;
+    }
+
+    .agora-tocando {
+        width: 100%;
+        text-align: left;
     }
 }

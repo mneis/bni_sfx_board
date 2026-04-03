@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const quickActionsGrid = document.getElementById('quick-actions-grid');
     const stopAllButton = document.getElementById('stop-all');
     const volumeSlider = document.getElementById('volume-master');
+    const volumeSliderShell = document.querySelector('.volume-slider-shell');
+    const volumeValue = document.getElementById('volume-value');
     const volumeDownButton = document.getElementById('volume-down');
     const volumeUpButton = document.getElementById('volume-up');
     const localeSelector = document.getElementById('locale-selector');
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function bindControls() {
         applyMasterVolume(state.masterVolume);
         setupDockDrag();
+        setupVolumeSliderTouch();
 
         if (stopAllButton) {
             stopAllButton.addEventListener('click', () => {
@@ -175,6 +178,45 @@ document.addEventListener('DOMContentLoaded', () => {
             applyDockPosition();
             localStorage.setItem('dock-position', JSON.stringify(state.dockPosition));
         });
+    }
+
+    function setupVolumeSliderTouch() {
+        if (!volumeSlider || !volumeSliderShell) return;
+        let draggingPointerId = null;
+
+        const syncVolumeFromPointer = clientX => {
+            const rect = volumeSlider.getBoundingClientRect();
+            if (!rect.width) return;
+
+            const relative = (clientX - rect.left) / rect.width;
+            const clamped = Math.max(0, Math.min(1, relative));
+            const stepped = Math.round(clamped / 0.05) * 0.05;
+            applyMasterVolume(stepped);
+        };
+
+        volumeSliderShell.addEventListener('pointerdown', event => {
+            event.preventDefault();
+            draggingPointerId = event.pointerId;
+            volumeSliderShell.setPointerCapture(event.pointerId);
+            syncVolumeFromPointer(event.clientX);
+        });
+
+        volumeSliderShell.addEventListener('pointermove', event => {
+            if (draggingPointerId !== event.pointerId) return;
+            event.preventDefault();
+            syncVolumeFromPointer(event.clientX);
+        });
+
+        const stopDragging = event => {
+            if (draggingPointerId !== event.pointerId) return;
+            draggingPointerId = null;
+            if (volumeSliderShell.hasPointerCapture(event.pointerId)) {
+                volumeSliderShell.releasePointerCapture(event.pointerId);
+            }
+        };
+
+        volumeSliderShell.addEventListener('pointerup', stopDragging);
+        volumeSliderShell.addEventListener('pointercancel', stopDragging);
     }
 
     function resetDockPosition() {
@@ -393,6 +435,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (volumeSlider) {
             volumeSlider.value = String(normalized);
             volumeSlider.style.setProperty('--volume-percent', `${Math.round(normalized * 100)}%`);
+        }
+        if (volumeValue) {
+            volumeValue.textContent = `${Math.round(normalized * 100)}%`;
         }
         state.entries.forEach(entry => {
             entry.audio.volume = state.masterVolume;

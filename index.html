@@ -43,10 +43,15 @@
         <div class="control-main">
             <button id="stop-all" class="botao-controle">Stop All</button>
             <label class="controle-volume" for="volume-master">
-                <span id="volume-label">Volume</span>
+                <div class="volume-label-stack">
+                    <span id="volume-label">Volume</span>
+                    <output id="volume-value" class="volume-value" for="volume-master">100%</output>
+                </div>
                 <div class="volume-control-row">
                     <button id="volume-down" class="botao-volume" type="button" aria-label="Volume down">-</button>
-                    <input id="volume-master" type="range" min="0" max="1" step="0.05" value="1">
+                    <div class="volume-slider-shell">
+                        <input id="volume-master" type="range" min="0" max="1" step="0.05" value="1">
+                    </div>
                     <button id="volume-up" class="botao-volume" type="button" aria-label="Volume up">+</button>
                 </div>
             </label>

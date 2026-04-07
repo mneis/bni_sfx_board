@@ -19,6 +19,8 @@
   "categories": {
     "opening_energy": "Opening and Energy",
     "transitions_pace": "Transitions and Pace",
+    "suspense_tension": "Suspense and Tension",
+    "error_breaks": "Error and Breaks",
     "business_tyfcb": "Business and TYFCB",
     "final_celebration": "Final Celebration"
   },
@@ -30,6 +32,11 @@
     "whoosh_transition": "Whoosh (Transition)",
     "idea_share": "Member Idea",
     "teaching_moment": "Member Insight",
+    "heartbeat": "Heartbeat",
+    "suspense_sudden": "Sudden Suspense",
+    "buzzer_error": "Error Buzzer",
+    "windows_error": "Windows Error",
+    "faustao_wrong": "Wrong Answer",
     "record_scratch": "Record Scratch (Pause)",
     "psycho_violin_screech": "Psycho Violin Screech",
     "kaching_deal": "Ka-Ching (Closed Deal)",

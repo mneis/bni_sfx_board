@@ -37,14 +37,46 @@
         {
           "id": "teaching_moment",
           "url": "audio/magic-idea.mp3"
+        }
+      ]
+    },
+    {
+      "id": "suspense_tension",
+      "cor_padrao": "#7c3aed",
+      "botoes": [
+        {
+          "id": "heartbeat",
+          "url": "audio/heartbeat.mp3"
         },
+        {
+          "id": "suspense_sudden",
+          "url": "audio/suspense-sudden-2.mp3"
+        },
+        {
+          "id": "psycho_violin_screech",
+          "url": "audio/psycho-violin-screech.mp3"
+        }
+      ]
+    },
+    {
+      "id": "error_breaks",
+      "cor_padrao": "#dc2626",
+      "botoes": [
         {
           "id": "record_scratch",
           "url": "audio/record-scratch-2_Eug9i1R.mp3"
         },
         {
-          "id": "psycho_violin_screech",
-          "url": "audio/psycho-violin-screech.mp3"
+          "id": "buzzer_error",
+          "url": "audio/buzzer-error.mp3"
+        },
+        {
+          "id": "windows_error",
+          "url": "audio/error_windows.mp3"
+        },
+        {
+          "id": "faustao_wrong",
+          "url": "audio/errou_faustao.mp3"
         }
       ]
     },

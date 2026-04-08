@@ -41,24 +41,6 @@
       ]
     },
     {
-      "id": "suspense_tension",
-      "cor_padrao": "#7c3aed",
-      "botoes": [
-        {
-          "id": "heartbeat",
-          "url": "audio/heartbeat.mp3"
-        },
-        {
-          "id": "suspense_sudden",
-          "url": "audio/suspense-sudden-2.mp3"
-        },
-        {
-          "id": "psycho_violin_screech",
-          "url": "audio/psycho-violin-screech.mp3"
-        }
-      ]
-    },
-    {
       "id": "error_breaks",
       "cor_padrao": "#dc2626",
       "botoes": [
@@ -91,6 +73,24 @@
         {
           "id": "money_value",
           "url": "audio/donate-sound-here-comes-the-money.mp3"
+        }
+      ]
+    },
+    {
+      "id": "suspense_tension",
+      "cor_padrao": "#7c3aed",
+      "botoes": [
+        {
+          "id": "heartbeat",
+          "url": "audio/heartbeat.mp3"
+        },
+        {
+          "id": "suspense_sudden",
+          "url": "audio/suspense-sudden-2.mp3"
+        },
+        {
+          "id": "psycho_violin_screech",
+          "url": "audio/psycho-violin-screech.mp3"
         }
       ]
     },

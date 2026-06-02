@@ -66,6 +66,10 @@ python3 -m http.server 8000
 
 Then open: `http://localhost:8000`
 
+## Release Checklist
+
+Before merging `staging` into `main`, use the [release checklist](docs/release-checklist.md) to verify the live GitHub Pages app is ready for meeting use.
+
 ## Audio Normalization (ffmpeg + loudnorm)
 
 Use the script below to normalize all audio files in `audio/` with `loudnorm` in 2-pass mode:

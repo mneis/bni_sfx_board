@@ -66,6 +66,10 @@ python3 -m http.server 8000
 
 Then open: `http://localhost:8000`
 
+## Operator Guide
+
+Use the [operator guide](docs/operator-guide.md) to prepare the iPad, test audio, run the board during a meeting, and recover quickly if something goes wrong.
+
 ## Release Checklist
 
 Before merging `staging` into `main`, use the [release checklist](docs/release-checklist.md) to verify the live GitHub Pages app is ready for meeting use.

@@ -9,6 +9,7 @@ Use this guide to run BNI SFX Board during a live meeting. It is written for a t
 - Keep the core soundboard on the iPad, even if music is handled elsewhere.
 - Connect audio output before the meeting starts.
 - Use the browser in fullscreen or a distraction-free view when possible.
+- Use a Bluetooth keyboard, numpad, or macro pad if tactile shortcuts help during live operation.
 - Keep the iPad charged or connected to power.
 - Test volume with the room audio system, not only with headphones or device speakers.
 
@@ -30,6 +31,9 @@ Spotify integration is optional and planned for a future version. The soundboard
   - final celebration
 - Pin the most useful sounds in Quick Actions.
 - Collapse or expand Quick Actions based on how much screen space you want.
+- Test the Quick Action shortcut keys in `QWERTYUIOPA` order. Extra pinned actions continue with the remaining keyboard letters, skipping `F`.
+- Test `Space` for Stop All.
+- Test `F` for fullscreen or focus mode.
 - Open Spotify on the MacBook if you use meeting playlists.
 - Confirm Spotify audio output and volume separately from the iPad.
 - Confirm the iPad battery level.
@@ -38,6 +42,8 @@ Spotify integration is optional and planned for a future version. The soundboard
 
 - Keep Stop All visible and easy to reach.
 - Use Quick Actions for the cues you expect to use most often.
+- Use `QWERTYUIOPA` to trigger Quick Actions from a physical keyboard or macro pad. Extra pinned actions receive the next available letter badge.
+- Use `F` to enter fullscreen or focus mode when you want fewer visual distractions.
 - Use applause after recognitions, testimonials, guest moments, and presentations.
 - Use transition sounds only after the speaker finishes.
 - Keep music low during speaking moments.
@@ -62,6 +68,7 @@ When Meeting Flow Mode is available, use it to follow the BNI meeting sequence, 
 ## Emergency Controls
 
 - Press Stop All to immediately stop the active sound.
+- Press `Space` to trigger Stop All from the keyboard.
 - Lower global volume if the room audio is too loud.
 - Reload the page if the interface becomes unresponsive.
 - Switch back to the full soundboard if Quick Actions does not include the cue you need.

@@ -10,15 +10,29 @@
         },
         {
           "id": "drum_roll",
-          "url": "audio/drum-roll-gaming-sound-effect-hd.mp3"
+          "url": "audio/drum-roll-gaming-sound-effect-hd.mp3",
+          "behavior": {
+            "mode": "exclusive",
+            "fadeOutMs": 500,
+            "restartOnPress": true
+          }
         },
         {
           "id": "drum_roll_long",
-          "url": "audio/drum-roll-long.mp3"
+          "url": "audio/drum-roll-long.mp3",
+          "behavior": {
+            "mode": "exclusive",
+            "fadeInMs": 250,
+            "fadeOutMs": 800,
+            "restartOnPress": false
+          }
         },
         {
           "id": "applause",
-          "url": "audio/salma-de-palmas.mp3"
+          "url": "audio/salma-de-palmas.mp3",
+          "behavior": {
+            "mode": "overlap"
+          }
         }
       ]
     },
@@ -82,7 +96,15 @@
       "botoes": [
         {
           "id": "heartbeat",
-          "url": "audio/heartbeat.mp3"
+          "url": "audio/heartbeat.mp3",
+          "behavior": {
+            "mode": "exclusive",
+            "volume": 0.75,
+            "fadeInMs": 500,
+            "fadeOutMs": 900,
+            "loop": true,
+            "restartOnPress": false
+          }
         },
         {
           "id": "suspense_sudden",
@@ -100,7 +122,13 @@
       "botoes": [
         {
           "id": "victory_theme",
-          "url": "audio/ayrton-senna-tema-da-vitoria.mp3"
+          "url": "audio/ayrton-senna-tema-da-vitoria.mp3",
+          "behavior": {
+            "mode": "exclusive",
+            "volume": 0.85,
+            "fadeInMs": 300,
+            "fadeOutMs": 1000
+          }
         }
       ]
     }

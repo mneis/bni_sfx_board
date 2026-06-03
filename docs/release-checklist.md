@@ -5,6 +5,7 @@ Use this checklist before moving `staging` into `main`. The goal is to keep the 
 ## Before Merging To Main
 
 - [ ] App loads locally.
+- [ ] App version query string is bumped if CSS, JavaScript, config, or translations changed.
 - [ ] App loads on an iPad browser.
 - [ ] Browser console has no critical errors.
 - [ ] Existing sounds play.

@@ -184,7 +184,7 @@ Static assets and JSON resources use an app version query string so browsers and
 - `js/app-version.js`
 - ES module import query strings in `js/`
 
-Use the same value everywhere, for example `2026.06.03.1`.
+Use the same value everywhere, for example `2026.06.03.2`.
 
 ## Audio Normalization
 

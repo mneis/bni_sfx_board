@@ -91,7 +91,7 @@ h1 {
     bottom: 14px;
     z-index: 30;
     display: grid;
-    grid-template-columns: auto minmax(320px, 420px) minmax(200px, 1fr);
+    grid-template-columns: auto minmax(500px, 560px) minmax(240px, 1fr);
     align-items: center;
     gap: 12px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)), var(--panel-color);
@@ -101,6 +101,15 @@ h1 {
     padding: 10px;
     backdrop-filter: blur(8px);
 }
+
+/*
+Control dock layout contract:
+- Wide screens use one row: handle, controls/volume cluster, Now Playing.
+- Medium screens use two rows: controls + Now Playing, then full-width volume.
+- Compact screens use three rows: controls, full-width Now Playing, full-width volume.
+- Short landscape uses a right-side vertical panel.
+Keep these groups explicit so volume never leaks and Now Playing does not collapse.
+*/
 
 .dock-handle {
     border: 1px solid #334155;
@@ -132,9 +141,10 @@ h1 {
 
 .control-main {
     display: grid;
-    grid-template-columns: max-content max-content minmax(220px, 340px);
+    grid-template-columns: max-content max-content minmax(260px, 1fr);
     align-items: center;
     gap: 10px;
+    min-width: 0;
 }
 
 .language-switch {
@@ -152,6 +162,7 @@ h1 {
     column-gap: 10px;
     font-weight: 700;
     color: var(--text-color);
+    min-width: 0;
 }
 
 .controle-volume > span {
@@ -195,7 +206,8 @@ h1 {
     grid-template-columns: 48px minmax(120px, 1fr) 48px;
     align-items: center;
     gap: 8px;
-    width: min(100%, 340px);
+    width: 100%;
+    min-width: 0;
 }
 
 .volume-slider-shell {
@@ -207,6 +219,7 @@ h1 {
     border: 1px solid #334155;
     display: flex;
     align-items: center;
+    min-width: 0;
 }
 
 .volume-value {
@@ -298,22 +311,22 @@ h1 {
 .botao-controle {
     background: linear-gradient(180deg, #ef4444, #dc2626);
     min-height: 48px;
-    min-width: 116px;
-    width: 116px;
+    min-width: 132px;
+    width: 132px;
     font-size: 1rem;
     letter-spacing: 0.2px;
     touch-action: manipulation;
     justify-self: start;
     position: relative;
-    padding-right: 32px;
+    padding-right: 42px;
 }
 
 .botao-controle::after {
-    content: 'Space';
+    content: 'Spc';
     position: absolute;
     top: 6px;
     right: 7px;
-    min-width: 42px;
+    min-width: 30px;
     height: 20px;
     display: inline-flex;
     align-items: center;
@@ -322,7 +335,7 @@ h1 {
     background: rgba(15, 23, 42, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.42);
     color: #ffffff;
-    font-size: 0.62rem;
+    font-size: 0.66rem;
     font-weight: 900;
 }
 
@@ -549,10 +562,10 @@ h1 {
     top: 36px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 980px) {
     body {
         padding: 10px;
-        padding-bottom: 150px;
+        padding-bottom: 154px;
     }
 
     .topo {
@@ -580,7 +593,7 @@ h1 {
         width: auto;
         transform: none;
         bottom: 10px;
-        grid-template-columns: 34px minmax(96px, 116px) minmax(82px, 104px) minmax(0, 1fr);
+        grid-template-columns: 40px minmax(108px, 132px) 56px minmax(180px, 1fr);
         grid-template-areas:
             "handle stop fullscreen now"
             "volume volume volume volume";
@@ -594,7 +607,7 @@ h1 {
 
     .dock-handle {
         grid-area: handle;
-        width: 34px;
+        width: 40px;
         height: 48px;
         font-size: 0.78rem;
     }
@@ -691,21 +704,22 @@ h1 {
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
     body {
-        padding-bottom: 156px;
+        padding-bottom: 204px;
     }
 
     .control-dock {
-        grid-template-columns: 30px minmax(78px, 94px) minmax(72px, 86px) minmax(0, 1fr);
+        grid-template-columns: 34px minmax(0, 1fr) 52px;
         grid-template-areas:
-            "handle stop fullscreen now"
-            "volume volume volume volume";
+            "handle stop fullscreen"
+            "now now now"
+            "volume volume volume";
         gap: 6px;
     }
 
     .dock-handle {
-        width: 30px;
+        width: 34px;
     }
 
     .botao-controle {
@@ -717,9 +731,9 @@ h1 {
     .botao-controle::after {
         top: 5px;
         right: 5px;
-        min-width: 34px;
+        min-width: 28px;
         height: 18px;
-        font-size: 0.56rem;
+        font-size: 0.6rem;
     }
 
     .botao-fullscreen {
@@ -737,6 +751,39 @@ h1 {
 
     .volume-label-stack {
         gap: 3px;
+    }
+}
+
+@media (max-width: 420px) {
+    body {
+        padding-bottom: 214px;
+    }
+
+    .control-dock {
+        grid-template-columns: 30px minmax(0, 1fr) 46px;
+        padding: 6px;
+    }
+
+    .dock-handle {
+        width: 30px;
+    }
+
+    .botao-controle {
+        min-height: 46px;
+    }
+
+    .botao-fullscreen {
+        min-height: 46px;
+    }
+
+    .volume-control-row {
+        grid-template-columns: 36px minmax(0, 1fr) 36px;
+        gap: 5px;
+    }
+
+    .botao-volume {
+        width: 36px;
+        height: 40px;
     }
 }
 
@@ -759,21 +806,31 @@ h1 {
     }
 
     .control-main {
+        display: grid;
         grid-template-columns: 1fr;
         gap: 8px;
         width: 100%;
     }
 
     .dock-handle {
+        grid-area: auto;
         width: 100%;
     }
 
     .botao-controle {
+        grid-area: auto;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .botao-fullscreen {
+        grid-area: auto;
         width: 100%;
         min-width: 0;
     }
 
     .controle-volume {
+        grid-area: auto;
         width: 100%;
         grid-template-columns: 1fr;
         row-gap: 8px;
@@ -788,6 +845,7 @@ h1 {
     }
 
     .agora-tocando {
+        grid-area: auto;
         width: 100%;
         text-align: left;
     }

@@ -26,6 +26,18 @@ body {
     padding-bottom: 112px;
 }
 
+body.operator-focus {
+    padding-top: 10px;
+}
+
+body.operator-focus .topo {
+    padding: 10px 12px;
+}
+
+body.operator-focus .subtitulo {
+    display: none;
+}
+
 #soundboard-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -120,9 +132,9 @@ h1 {
 
 .control-main {
     display: grid;
-    grid-template-columns: max-content minmax(260px, 340px);
+    grid-template-columns: max-content max-content minmax(220px, 340px);
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .language-switch {
@@ -292,11 +304,41 @@ h1 {
     letter-spacing: 0.2px;
     touch-action: manipulation;
     justify-self: start;
+    position: relative;
+    padding-right: 32px;
+}
+
+.botao-controle::after {
+    content: 'Space';
+    position: absolute;
+    top: 6px;
+    right: 7px;
+    min-width: 42px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    color: #ffffff;
+    font-size: 0.62rem;
+    font-weight: 900;
 }
 
 .botao-secundario {
     background: #1e293b;
     border-color: #334155;
+}
+
+.botao-fullscreen {
+    min-height: 48px;
+    min-width: 54px;
+    width: 54px;
+    padding: 8px;
+    font-size: 1.2rem;
+    line-height: 1;
+    touch-action: manipulation;
 }
 
 .botao-controle:hover,
@@ -423,6 +465,33 @@ h1 {
     transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease;
     box-shadow: var(--shadow-soft);
     word-wrap: break-word;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sound-label {
+    display: block;
+    padding-inline: 8px;
+}
+
+.shortcut-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    min-width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 900;
+    line-height: 1;
 }
 
 .botao-prioritario {
@@ -476,6 +545,10 @@ h1 {
     border-radius: 999px;
 }
 
+.botao-prioritario.botao-tocando::after {
+    top: 36px;
+}
+
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -507,10 +580,10 @@ h1 {
         width: auto;
         transform: none;
         bottom: 10px;
-        grid-template-columns: 34px minmax(104px, 128px) minmax(0, 1fr);
+        grid-template-columns: 34px minmax(96px, 116px) minmax(82px, 104px) minmax(0, 1fr);
         grid-template-areas:
-            "handle stop now"
-            "volume volume volume";
+            "handle stop fullscreen now"
+            "volume volume volume volume";
         padding: 8px;
         gap: 8px;
     }
@@ -532,6 +605,16 @@ h1 {
         min-width: 0;
         min-height: 48px;
         padding: 8px 10px;
+        padding-right: 28px;
+    }
+
+    .botao-fullscreen {
+        grid-area: fullscreen;
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 8px;
+        font-size: 1.1rem;
     }
 
     .controle-volume {
@@ -614,10 +697,10 @@ h1 {
     }
 
     .control-dock {
-        grid-template-columns: 30px minmax(88px, 104px) minmax(0, 1fr);
+        grid-template-columns: 30px minmax(78px, 94px) minmax(72px, 86px) minmax(0, 1fr);
         grid-template-areas:
-            "handle stop now"
-            "volume volume volume";
+            "handle stop fullscreen now"
+            "volume volume volume volume";
         gap: 6px;
     }
 
@@ -628,6 +711,20 @@ h1 {
     .botao-controle {
         font-size: 0.9rem;
         padding-inline: 8px;
+        padding-right: 24px;
+    }
+
+    .botao-controle::after {
+        top: 5px;
+        right: 5px;
+        min-width: 34px;
+        height: 18px;
+        font-size: 0.56rem;
+    }
+
+    .botao-fullscreen {
+        font-size: 1rem;
+        padding-inline: 6px;
     }
 
     .volume-control-row {

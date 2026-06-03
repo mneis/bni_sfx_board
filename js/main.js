@@ -1,10 +1,12 @@
-import { applyMasterVolume, playEntryExclusive, setEntryPlayingState, stopAllAudio } from './audio-engine.js';
-import { loadAppResources } from './config-loader.js';
-import { t as translate } from './i18n.js';
-import { renderQuickActions, toggleQuickAction } from './quick-actions.js';
-import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js';
-import { createInitialState } from './state.js';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.03.1';
+import { loadAppResources } from './config-loader.js?v=2026.06.03.1';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.03.1';
+import { t as translate } from './i18n.js?v=2026.06.03.1';
+import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.03.1';
+import { getQuickActionEntries, renderQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.03.1';
+import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.03.1';
+import { createInitialState } from './state.js?v=2026.06.03.1';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.03.1';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {
@@ -19,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         volumeValue: document.getElementById('volume-value'),
         volumeDownButton: document.getElementById('volume-down'),
         volumeUpButton: document.getElementById('volume-up'),
+        fullscreenButton: document.getElementById('fullscreen-toggle'),
         localeSelector: document.getElementById('locale-selector'),
         quickEditButton: document.getElementById('quick-edit'),
         quickToggleButton: document.getElementById('quick-toggle')
@@ -27,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const state = createInitialState({
         masterVolume: dom.volumeSlider ? Number(dom.volumeSlider.value) : 1
     });
+    let fullscreenController = null;
 
     if (dom.localeSelector) {
         dom.localeSelector.value = state.locale;
@@ -43,6 +47,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function bindControls() {
         applyMasterVolume(state, state.masterVolume, dom);
+        fullscreenController = createFullscreenController({
+            button: dom.fullscreenButton,
+            t
+        });
+
+        bindKeyboardShortcuts({
+            getQuickActionEntries: () => getQuickActionEntries(state),
+            onTriggerEntry: toggleEntry,
+            onStopAll: () => stopAllAudio(state, { updateNowPlaying }),
+            onToggleFullscreen: () => fullscreenController.toggle()
+        });
+
         setupDockDrag();
         setupVolumeSliderTouch();
 
@@ -248,8 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container: dom.container,
             state,
             getCategoryLabel,
-            createSoundCard,
-            onAudioEnded
+            createSoundCard
         });
         renderQuickActionsGrid();
         updateQuickEditingState();
@@ -258,10 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNowPlaying();
     }
 
-    function createSoundCard(entry, isQuickAction) {
+    function createSoundCard(entry, isQuickAction, quickActionIndex = null) {
         return buildSoundCard({
             entry,
             isQuickAction,
+            quickActionIndex,
             state,
             getButtonLabel,
             isMajorCue,
@@ -283,16 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function onAudioEnded(entry) {
-        setEntryPlayingState(entry, false);
-        if (state.currentEntry === entry) {
-            state.currentEntry = null;
-            updateNowPlaying();
-        }
-    }
-
     function toggleEntry(entry) {
-        playEntryExclusive(state, entry, { updateNowPlaying });
+        playEntry(state, entry, { updateNowPlaying });
     }
 
     function updateNowPlaying() {
@@ -329,6 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         document.documentElement.lang = state.locale === 'ptbr' ? 'pt-BR' : 'en';
+        if (fullscreenController) {
+            fullscreenController.sync();
+        }
         updateNowPlaying();
     }
 

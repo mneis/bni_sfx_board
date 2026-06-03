@@ -1,6 +1,7 @@
-import { createAudioEntry } from './audio-engine.js';
+import { createAudioEntry } from './audio-engine.js?v=2026.06.03.2';
+import { getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.03.2';
 
-export function renderSoundboard({ container, state, getCategoryLabel, createSoundCard, onAudioEnded }) {
+export function renderSoundboard({ container, state, getCategoryLabel, createSoundCard }) {
     container.innerHTML = '';
     state.entries = [];
 
@@ -18,9 +19,7 @@ export function renderSoundboard({ container, state, getCategoryLabel, createSou
         categoria.botoes.forEach(botaoConfig => {
             const entry = createAudioEntry({
                 botaoConfig,
-                categoria,
-                masterVolume: state.masterVolume,
-                onEnded: onAudioEnded
+                categoria
             });
 
             state.entries.push(entry);
@@ -32,7 +31,7 @@ export function renderSoundboard({ container, state, getCategoryLabel, createSou
     });
 }
 
-export function createSoundCard({ entry, isQuickAction, state, getButtonLabel, isMajorCue, onToggleEntry, onToggleQuickAction, t }) {
+export function createSoundCard({ entry, isQuickAction, quickActionIndex, state, getButtonLabel, isMajorCue, onToggleEntry, onToggleQuickAction, t }) {
     const card = document.createElement('div');
     card.className = 'sound-item';
 
@@ -46,7 +45,21 @@ export function createSoundCard({ entry, isQuickAction, state, getButtonLabel, i
     }
 
     button.style.backgroundColor = entry.cor;
-    button.textContent = getButtonLabel(entry);
+    button.setAttribute('aria-label', getButtonLabel(entry));
+
+    const label = document.createElement('span');
+    label.className = 'sound-label';
+    label.textContent = getButtonLabel(entry);
+    button.appendChild(label);
+
+    const shortcutKey = isQuickAction ? getShortcutKeyForQuickAction(quickActionIndex) : null;
+    if (shortcutKey) {
+        const badge = document.createElement('span');
+        badge.className = 'shortcut-badge';
+        badge.textContent = shortcutKey;
+        button.appendChild(badge);
+    }
+
     button.addEventListener('click', () => {
         onToggleEntry(entry);
     });

@@ -4,6 +4,8 @@
     "subtitle": "Live audio operation for BNI meetings",
     "language": "Language",
     "stopAll": "Stop All",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen",
     "volume": "Volume",
     "nowPlaying": "Now Playing",
     "none": "-",

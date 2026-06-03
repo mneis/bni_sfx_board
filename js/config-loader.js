@@ -1,5 +1,8 @@
+import { APP_VERSION } from './app-version.js?v=2026.06.03.2';
+
 async function fetchJson(url) {
-    const response = await fetch(url);
+    const versionedUrl = `${url}?v=${encodeURIComponent(APP_VERSION)}`;
+    const response = await fetch(versionedUrl);
     if (!response.ok) {
         throw new Error(`Failed to load ${url}: ${response.status}`);
     }

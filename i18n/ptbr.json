@@ -4,6 +4,8 @@
     "subtitle": "Operação de áudio ao vivo para reuniões BNI",
     "language": "Idioma",
     "stopAll": "Parar Tudo",
+    "fullscreen": "Tela Cheia",
+    "exitFullscreen": "Sair",
     "volume": "Volume",
     "nowPlaying": "Tocando Agora",
     "none": "-",

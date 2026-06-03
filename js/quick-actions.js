@@ -1,4 +1,4 @@
-import { DEFAULT_QUICK_ACTION_IDS, saveQuickActions } from './storage.js?v=2026.06.03.2';
+import { DEFAULT_QUICK_ACTION_IDS, saveQuickActions } from './storage.js?v=2026.06.03.3';
 
 export function renderQuickActions({ quickActionsGrid, state, createSoundCard }) {
     quickActionsGrid.innerHTML = '';
@@ -27,6 +27,12 @@ export function toggleQuickAction({ state, buttonId, renderQuickActions }) {
         state.quickActionIds.add(buttonId);
     }
 
+    saveQuickActions(state.quickActionIds);
+    renderQuickActions();
+}
+
+export function resetQuickActions({ state, renderQuickActions }) {
+    state.quickActionIds = new Set(DEFAULT_QUICK_ACTION_IDS);
     saveQuickActions(state.quickActionIds);
     renderQuickActions();
 }

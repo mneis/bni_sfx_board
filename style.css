@@ -344,6 +344,18 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     border-color: #334155;
 }
 
+.botao-perigo {
+    display: none;
+    background: linear-gradient(180deg, #b91c1c, #991b1b);
+    border-color: #ef4444;
+}
+
+.quick-editing .botao-perigo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .botao-fullscreen {
     min-height: 48px;
     min-width: 54px;

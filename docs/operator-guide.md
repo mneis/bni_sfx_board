@@ -30,6 +30,7 @@ Spotify integration is optional and planned for a future version. The soundboard
   - suspense or tension
   - final celebration
 - Pin the most useful sounds in Quick Actions.
+- Use Reset in Quick Actions edit mode if an old browser setup should return to the repository defaults.
 - Collapse or expand Quick Actions based on how much screen space you want.
 - Test the Quick Action shortcut keys in `QWERTYUIOPA` order. Extra pinned actions continue with the remaining keyboard letters, skipping `F`.
 - Test `Space` for Stop All.

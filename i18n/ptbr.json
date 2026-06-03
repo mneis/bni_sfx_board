@@ -13,6 +13,8 @@
     "quickHelp": "Atalhos dos efeitos mais usados durante a reunião.",
     "quickEdit": "Editar",
     "quickDone": "Concluir",
+    "quickReset": "Restaurar",
+    "quickResetConfirm": "Restaurar as Ações Rápidas para a sequência padrão?",
     "quickMinimize": "Minimizar",
     "quickExpand": "Expandir",
     "pin": "Fixar",

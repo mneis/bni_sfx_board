@@ -126,6 +126,8 @@ Use `mode: "exclusive"` for cues where one press should replace the current soun
 
 Selections are persisted in browser `localStorage`.
 
+Use `Reset` in edit mode to restore the repository default Quick Actions sequence after confirming the prompt.
+
 ## Operator Shortcuts
 
 Keyboard shortcuts are designed for Bluetooth keyboards, numpads, and macro pads:
@@ -184,7 +186,7 @@ Static assets and JSON resources use an app version query string so browsers and
 - `js/app-version.js`
 - ES module import query strings in `js/`
 
-Use the same value everywhere, for example `2026.06.03.2`.
+Use the same value everywhere, for example `2026.06.03.3`.
 
 ## Audio Normalization
 

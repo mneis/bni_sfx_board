@@ -13,6 +13,8 @@
     "quickHelp": "Shortcuts for your most used effects during the meeting.",
     "quickEdit": "Edit",
     "quickDone": "Done",
+    "quickReset": "Reset",
+    "quickResetConfirm": "Reset Quick Actions to the default sequence?",
     "quickMinimize": "Minimize",
     "quickExpand": "Expand",
     "pin": "Pin",

@@ -1,4 +1,4 @@
-import { loadDockPosition, loadLocale, loadQuickActions, loadQuickMinimized } from './storage.js?v=2026.06.03.2';
+import { loadDockPosition, loadLocale, loadQuickActions, loadQuickMinimized } from './storage.js?v=2026.06.03.3';
 
 export function createInitialState({ masterVolume }) {
     return {

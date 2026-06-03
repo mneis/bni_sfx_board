@@ -479,6 +479,7 @@ h1 {
 @media (max-width: 768px) {
     body {
         padding: 10px;
+        padding-bottom: 150px;
     }
 
     .topo {
@@ -506,38 +507,85 @@ h1 {
         width: auto;
         transform: none;
         bottom: 10px;
-        grid-template-columns: 1fr;
-        padding: 10px;
+        grid-template-columns: 34px minmax(104px, 128px) minmax(0, 1fr);
+        grid-template-areas:
+            "handle stop now"
+            "volume volume volume";
+        padding: 8px;
         gap: 8px;
     }
 
     .control-main {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        display: contents;
     }
 
     .dock-handle {
-        width: 100%;
+        grid-area: handle;
+        width: 34px;
+        height: 48px;
+        font-size: 0.78rem;
     }
 
     .botao-controle {
+        grid-area: stop;
         width: 100%;
         min-width: 0;
+        min-height: 48px;
+        padding: 8px 10px;
     }
 
     .controle-volume {
+        grid-area: volume;
         width: 100%;
-        grid-template-columns: 1fr;
-        row-gap: 8px;
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: 8px;
+        row-gap: 0;
     }
 
     .volume-control-row {
         width: 100%;
+        grid-template-columns: 42px minmax(0, 1fr) 42px;
+        gap: 6px;
+    }
+
+    .volume-label-stack {
+        justify-content: center;
+    }
+
+    .botao-volume {
+        width: 42px;
+        height: 42px;
+        border-radius: 9px;
+    }
+
+    .volume-slider-shell {
+        min-height: 42px;
+        border-radius: 12px;
+    }
+
+    .controle-volume input {
+        height: 42px;
+    }
+
+    .controle-volume input::-webkit-slider-thumb {
+        width: 30px;
+        height: 30px;
+        margin-top: -6px;
+    }
+
+    .controle-volume input::-moz-range-thumb {
+        width: 30px;
+        height: 30px;
     }
 
     .agora-tocando {
+        grid-area: now;
         width: 100%;
-        text-align: center;
+        min-height: 48px;
+        line-height: 24px;
+        display: flex;
+        align-items: center;
+        text-align: left;
     }
 
     .quick-controls {
@@ -557,6 +605,41 @@ h1 {
     .botao-major {
         min-height: 98px;
         font-size: 0.98rem;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        padding-bottom: 156px;
+    }
+
+    .control-dock {
+        grid-template-columns: 30px minmax(88px, 104px) minmax(0, 1fr);
+        grid-template-areas:
+            "handle stop now"
+            "volume volume volume";
+        gap: 6px;
+    }
+
+    .dock-handle {
+        width: 30px;
+    }
+
+    .botao-controle {
+        font-size: 0.9rem;
+        padding-inline: 8px;
+    }
+
+    .volume-control-row {
+        grid-template-columns: 38px minmax(0, 1fr) 38px;
+    }
+
+    .botao-volume {
+        width: 38px;
+    }
+
+    .volume-label-stack {
+        gap: 3px;
     }
 }
 

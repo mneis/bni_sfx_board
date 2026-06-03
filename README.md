@@ -57,7 +57,14 @@ The soundboard must remain useful even without Spotify. Spotify integration is a
 
 - `index.html`: Page structure and UI regions.
 - `style.css`: Dark theme, layout, responsive behavior, and interaction states.
-- `app.js`: Rendering, audio playback logic, quick actions state, and i18n loading.
+- `js/main.js`: Static ES module entrypoint and UI orchestration.
+- `js/audio-engine.js`: Audio entry creation, playback, stop-all behavior, and volume updates.
+- `js/soundboard-renderer.js`: Soundboard category and sound button rendering.
+- `js/quick-actions.js`: Quick Actions rendering and persistence updates.
+- `js/config-loader.js`: Static JSON resource loading.
+- `js/i18n.js`: Translation lookup helper.
+- `js/state.js`: Initial client-side state creation.
+- `js/storage.js`: Browser `localStorage` helpers.
 - `config.json`: Categories, button IDs, colors, and audio paths.
 - `i18n/enus.json`: English translations.
 - `i18n/ptbr.json`: Brazilian Portuguese translations.

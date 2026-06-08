@@ -1,12 +1,12 @@
-import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.08.1';
-import { loadAppResources } from './config-loader.js?v=2026.06.08.1';
-import { createFullscreenController } from './fullscreen.js?v=2026.06.08.1';
-import { t as translate } from './i18n.js?v=2026.06.08.1';
-import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.08.1';
-import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.08.1';
-import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.08.1';
-import { createInitialState } from './state.js?v=2026.06.08.1';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.08.1';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.08.2';
+import { loadAppResources } from './config-loader.js?v=2026.06.08.2';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.08.2';
+import { t as translate } from './i18n.js?v=2026.06.08.2';
+import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.08.2';
+import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.08.2';
+import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.08.2';
+import { createInitialState } from './state.js?v=2026.06.08.2';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.08.2';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             onToggleFullscreen: () => fullscreenController.toggle()
         });
 
+        setupTouchGestureGuards();
         setupDockDrag();
         setupVolumeSliderTouch();
 
@@ -144,6 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
             state.drag.offsetX = event.clientX - rect.left;
             state.drag.offsetY = event.clientY - rect.top;
             state.drag.width = Math.round(rect.width);
+            state.drag.startX = event.clientX;
+            state.drag.startY = event.clientY;
+            state.drag.moved = false;
 
             dom.controlDock.classList.add('is-floating', 'is-dragging');
             dom.controlDock.style.left = `${Math.round(rect.left)}px`;
@@ -159,6 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!state.drag.active || state.drag.pointerId !== event.pointerId) return;
             event.preventDefault();
 
+            if (getPointerDistance(event, state.drag.startX, state.drag.startY) > 6) {
+                state.drag.moved = true;
+                suppressTouchClicks();
+            }
+
             state.dockPosition = clampDockPosition(
                 event.clientX - state.drag.offsetX,
                 event.clientY - state.drag.offsetY
@@ -172,13 +181,23 @@ document.addEventListener('DOMContentLoaded', () => {
             state.drag.active = false;
             state.drag.pointerId = null;
             dom.controlDock.classList.remove('is-dragging');
+            if (state.drag.moved) {
+                suppressTouchClicks();
+                dom.dockHandle.blur();
+            }
             saveDockPosition(state.dockPosition);
         };
 
         dom.dockHandle.addEventListener('pointerup', finishDrag);
         dom.dockHandle.addEventListener('pointercancel', finishDrag);
 
-        dom.dockHandle.addEventListener('click', () => {
+        dom.dockHandle.addEventListener('click', event => {
+            if (shouldSuppressTouchClick()) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
+
             const now = Date.now();
             const isDoubleTap = now - state.dockTapLastAt <= 350;
             state.dockTapLastAt = now;
@@ -197,6 +216,61 @@ document.addEventListener('DOMContentLoaded', () => {
             applyDockPosition();
             saveDockPosition(state.dockPosition);
         });
+    }
+
+    function setupTouchGestureGuards() {
+        document.addEventListener('pointerdown', event => {
+            if (!isTouchPointer(event)) return;
+            state.touchGuard.pointerId = event.pointerId;
+            state.touchGuard.startX = event.clientX;
+            state.touchGuard.startY = event.clientY;
+        }, true);
+
+        document.addEventListener('pointermove', event => {
+            if (!isTouchPointer(event) || state.touchGuard.pointerId !== event.pointerId) return;
+            if (getPointerDistance(event, state.touchGuard.startX, state.touchGuard.startY) > 8) {
+                suppressTouchClicks();
+            }
+        }, true);
+
+        document.addEventListener('touchmove', () => {
+            suppressTouchClicks();
+        }, { capture: true, passive: true });
+
+        document.addEventListener('click', event => {
+            if (!shouldSuppressTouchClick()) return;
+            if (!(event.target instanceof Element) || !event.target.closest('button')) return;
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+        }, true);
+    }
+
+    function suppressTouchClicks() {
+        state.touchGuard.suppressClicksUntil = Date.now() + 450;
+        blurGestureFocusedElement();
+    }
+
+    function shouldSuppressTouchClick() {
+        return Date.now() < state.touchGuard.suppressClicksUntil;
+    }
+
+    function isTouchPointer(event) {
+        return event.pointerType === 'touch' || event.pointerType === 'pen';
+    }
+
+    function getPointerDistance(event, startX, startY) {
+        return Math.hypot(event.clientX - startX, event.clientY - startY);
+    }
+
+    function blurGestureFocusedElement() {
+        const focusedElement = document.activeElement;
+        if (!focusedElement || focusedElement === document.body) return;
+
+        const tagName = focusedElement.tagName ? focusedElement.tagName.toLowerCase() : '';
+        if (tagName === 'button' || focusedElement.matches('input[type="range"]')) {
+            focusedElement.blur();
+        }
     }
 
     function setupVolumeSliderTouch() {
@@ -244,6 +318,9 @@ document.addEventListener('DOMContentLoaded', () => {
         state.drag.active = false;
         state.drag.pointerId = null;
         state.drag.width = null;
+        state.drag.startX = 0;
+        state.drag.startY = 0;
+        state.drag.moved = false;
         dom.controlDock.classList.remove('is-floating', 'is-dragging');
         dom.controlDock.style.removeProperty('left');
         dom.controlDock.style.removeProperty('top');

@@ -1,4 +1,4 @@
-import { DEFAULT_QUICK_ACTION_IDS, saveQuickActions } from './storage.js?v=2026.06.08.1';
+import { DEFAULT_QUICK_ACTION_IDS, saveQuickActions } from './storage.js?v=2026.06.08.2';
 
 export function renderQuickActions({ quickActionsGrid, state, createSoundCard }) {
     quickActionsGrid.innerHTML = '';

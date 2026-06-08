@@ -7,6 +7,7 @@ const QUICK_ACTION_KEYS = [
 export function bindKeyboardShortcuts({ getQuickActionEntries, onTriggerEntry, onStopAll, onToggleFullscreen }) {
     document.addEventListener('keydown', event => {
         if (shouldIgnoreShortcut(event)) return;
+        if (event.repeat) return;
 
         const quickIndex = QUICK_ACTION_KEYS.indexOf(event.key.toLowerCase());
         if (quickIndex >= 0) {
@@ -42,8 +43,12 @@ function shouldIgnoreShortcut(event) {
     if (!target) return false;
 
     const tagName = target.tagName ? target.tagName.toLowerCase() : '';
+    if (tagName === 'input') {
+        const type = target.getAttribute('type') || 'text';
+        return type.toLowerCase() !== 'range';
+    }
+
     return target.isContentEditable
-        || tagName === 'input'
         || tagName === 'select'
         || tagName === 'textarea';
 }

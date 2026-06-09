@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BNI Soundboard</title>
-    <link rel="stylesheet" href="style.css?v=2026.06.08.2">
+    <link rel="stylesheet" href="style.css?v=2026.06.09.1">
 </head>
 <body>
     <header class="topo">
@@ -36,6 +36,53 @@
         <div id="quick-actions-grid" class="grid-botoes grid-quick"></div>
     </section>
 
+    <section class="spotify-panel" id="spotify-panel">
+        <div class="spotify-header">
+            <div>
+                <h2 id="spotify-title">Spotify</h2>
+                <p id="spotify-status" class="spotify-status">Disconnected</p>
+            </div>
+            <div class="spotify-actions">
+                <button id="spotify-connect" class="botao-secundario" type="button">Connect</button>
+                <button id="spotify-disconnect" class="botao-secundario" type="button">Disconnect</button>
+            </div>
+        </div>
+
+        <div class="spotify-grid">
+            <label class="spotify-field" for="spotify-client-id">
+                <span id="spotify-client-label">Client ID</span>
+                <input id="spotify-client-id" type="text" autocomplete="off" spellcheck="false">
+            </label>
+            <button id="spotify-save-client" class="botao-secundario" type="button">Save</button>
+            <label class="spotify-field" for="spotify-device-select">
+                <span id="spotify-device-label">Device</span>
+                <select id="spotify-device-select"></select>
+            </label>
+            <button id="spotify-refresh-devices" class="botao-secundario" type="button">Refresh</button>
+            <button id="spotify-transfer" class="botao-secundario" type="button">Transfer</button>
+        </div>
+
+        <div class="spotify-player">
+            <div class="spotify-transport">
+                <button id="spotify-previous" class="botao-secundario" type="button">Prev</button>
+                <button id="spotify-play-pause" class="botao-secundario spotify-play" type="button">Play</button>
+                <button id="spotify-next" class="botao-secundario" type="button">Next</button>
+            </div>
+            <div class="spotify-volume">
+                <span id="spotify-volume-label">Music Volume</span>
+                <button id="spotify-volume-down" class="botao-volume" type="button" aria-label="Spotify volume down">-</button>
+                <input id="spotify-volume" type="range" min="0" max="100" step="5" value="50" aria-labelledby="spotify-volume-label">
+                <button id="spotify-volume-up" class="botao-volume" type="button" aria-label="Spotify volume up">+</button>
+                <output id="spotify-volume-value" for="spotify-volume">50%</output>
+            </div>
+        </div>
+
+        <div class="spotify-now">
+            <span id="spotify-playback-status">Playback: -</span>
+            <span id="spotify-track">Track: -</span>
+        </div>
+    </section>
+
     <main id="soundboard-container">
     </main>
 
@@ -61,6 +108,6 @@
         <span id="now-playing" class="agora-tocando">Now Playing: -</span>
     </section>
 
-    <script type="module" src="js/main.js?v=2026.06.08.2"></script>
+    <script type="module" src="js/main.js?v=2026.06.09.1"></script>
 </body>
 </html>

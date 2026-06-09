@@ -39,7 +39,13 @@ export function getShortcutKeyForQuickAction(index) {
 function shouldIgnoreShortcut(event) {
     if (event.altKey || event.ctrlKey || event.metaKey) return true;
 
-    const target = event.target;
+    if (shouldIgnoreShortcutTarget(event.target)) return true;
+
+    const activeElement = document.activeElement;
+    return activeElement !== event.target && shouldIgnoreShortcutTarget(activeElement);
+}
+
+function shouldIgnoreShortcutTarget(target) {
     if (!target) return false;
 
     const tagName = target.tagName ? target.tagName.toLowerCase() : '';

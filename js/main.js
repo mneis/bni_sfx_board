@@ -1,12 +1,13 @@
-import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.08.2';
-import { loadAppResources } from './config-loader.js?v=2026.06.08.2';
-import { createFullscreenController } from './fullscreen.js?v=2026.06.08.2';
-import { t as translate } from './i18n.js?v=2026.06.08.2';
-import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.08.2';
-import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.08.2';
-import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.08.2';
-import { createInitialState } from './state.js?v=2026.06.08.2';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.08.2';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.09.1';
+import { loadAppResources } from './config-loader.js?v=2026.06.09.1';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.09.1';
+import { t as translate } from './i18n.js?v=2026.06.09.1';
+import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.09.1';
+import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.09.1';
+import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.09.1';
+import { createInitialState } from './state.js?v=2026.06.09.1';
+import { createSpotifyController } from './spotify-controller.js?v=2026.06.09.1';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.09.1';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {
@@ -25,13 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
         localeSelector: document.getElementById('locale-selector'),
         quickEditButton: document.getElementById('quick-edit'),
         quickResetButton: document.getElementById('quick-reset'),
-        quickToggleButton: document.getElementById('quick-toggle')
+        quickToggleButton: document.getElementById('quick-toggle'),
+        spotifyPanel: document.getElementById('spotify-panel'),
+        spotifyTitle: document.getElementById('spotify-title'),
+        spotifyStatus: document.getElementById('spotify-status'),
+        spotifyClientLabel: document.getElementById('spotify-client-label'),
+        spotifyClientIdInput: document.getElementById('spotify-client-id'),
+        spotifySaveClientButton: document.getElementById('spotify-save-client'),
+        spotifyConnectButton: document.getElementById('spotify-connect'),
+        spotifyDisconnectButton: document.getElementById('spotify-disconnect'),
+        spotifyDeviceLabel: document.getElementById('spotify-device-label'),
+        spotifyDeviceSelect: document.getElementById('spotify-device-select'),
+        spotifyRefreshDevicesButton: document.getElementById('spotify-refresh-devices'),
+        spotifyTransferButton: document.getElementById('spotify-transfer'),
+        spotifyPlaybackStatus: document.getElementById('spotify-playback-status'),
+        spotifyTrack: document.getElementById('spotify-track'),
+        spotifyPreviousButton: document.getElementById('spotify-previous'),
+        spotifyPlayPauseButton: document.getElementById('spotify-play-pause'),
+        spotifyNextButton: document.getElementById('spotify-next'),
+        spotifyVolumeLabel: document.getElementById('spotify-volume-label'),
+        spotifyVolumeSlider: document.getElementById('spotify-volume'),
+        spotifyVolumeValue: document.getElementById('spotify-volume-value'),
+        spotifyVolumeDownButton: document.getElementById('spotify-volume-down'),
+        spotifyVolumeUpButton: document.getElementById('spotify-volume-up')
     };
 
     const state = createInitialState({
         masterVolume: dom.volumeSlider ? Number(dom.volumeSlider.value) : 1
     });
     let fullscreenController = null;
+    let spotifyController = null;
 
     if (dom.localeSelector) {
         dom.localeSelector.value = state.locale;
@@ -63,6 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setupTouchGestureGuards();
         setupDockDrag();
         setupVolumeSliderTouch();
+        spotifyController = createSpotifyController({ dom, t });
+        spotifyController.init();
 
         if (dom.stopAllButton) {
             dom.stopAllButton.addEventListener('click', () => {
@@ -437,6 +463,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.lang = state.locale === 'ptbr' ? 'pt-BR' : 'en';
         if (fullscreenController) {
             fullscreenController.sync();
+        }
+        if (spotifyController) {
+            spotifyController.syncTexts();
         }
         updateNowPlaying();
     }

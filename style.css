@@ -396,6 +396,126 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     padding: 14px;
 }
 
+.spotify-panel {
+    background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(255, 255, 255, 0.015)), var(--panel-color);
+    border: 1px solid rgba(34, 197, 94, 0.32);
+    border-radius: 14px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 16px;
+    padding: 14px;
+}
+
+.spotify-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.spotify-header h2 {
+    margin: 0;
+    color: #dcfce7;
+    font-size: 1.1rem;
+}
+
+.spotify-status {
+    margin: 5px 0 0;
+    color: #bbf7d0;
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.spotify-actions,
+.spotify-transport {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.spotify-grid {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.3fr) auto minmax(220px, 1fr) auto auto;
+    gap: 8px;
+    align-items: end;
+    margin-bottom: 10px;
+}
+
+.spotify-field,
+.spotify-volume {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    color: var(--text-color);
+    font-weight: 800;
+}
+
+.spotify-field input,
+.spotify-field select {
+    min-height: 44px;
+    width: 100%;
+    min-width: 0;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 9px 10px;
+    font: inherit;
+    font-weight: 700;
+}
+
+.spotify-player {
+    display: grid;
+    grid-template-columns: max-content minmax(260px, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.spotify-play {
+    min-width: 82px;
+    background: #15803d;
+    border-color: #22c55e;
+}
+
+.spotify-volume {
+    grid-template-columns: auto 42px minmax(120px, 1fr) 42px auto;
+    align-items: center;
+    gap: 8px;
+}
+
+.spotify-volume input {
+    width: 100%;
+    height: 42px;
+    accent-color: #22c55e;
+    cursor: pointer;
+    --spotify-volume-percent: 50%;
+}
+
+.spotify-volume output {
+    min-width: 48px;
+    color: #bbf7d0;
+    font-weight: 900;
+    text-align: right;
+}
+
+.spotify-now {
+    display: grid;
+    grid-template-columns: minmax(120px, auto) minmax(200px, 1fr);
+    gap: 10px;
+    color: #d1fae5;
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.spotify-now span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .quick-header {
     display: flex;
     align-items: center;
@@ -700,6 +820,37 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
         width: 100%;
     }
 
+    .spotify-header,
+    .spotify-actions,
+    .spotify-transport {
+        align-items: stretch;
+    }
+
+    .spotify-grid {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .spotify-field {
+        grid-column: span 2;
+    }
+
+    .spotify-player {
+        grid-template-columns: 1fr;
+    }
+
+    .spotify-transport {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .spotify-volume {
+        grid-template-columns: 1fr 42px minmax(0, 1fr) 42px auto;
+    }
+
+    .spotify-now {
+        grid-template-columns: 1fr;
+    }
+
     .botao-secundario {
         flex: 1;
     }
@@ -763,6 +914,28 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 
     .volume-label-stack {
         gap: 3px;
+    }
+
+    .spotify-header {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .spotify-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .spotify-field {
+        grid-column: auto;
+    }
+
+    .spotify-volume {
+        grid-template-columns: 1fr 36px minmax(0, 1fr) 36px auto;
+        gap: 5px;
+    }
+
+    .spotify-volume > span {
+        grid-column: 1 / -1;
     }
 }
 

@@ -14,6 +14,7 @@ The project is designed for real meeting operation: quick access to common cues,
 - Quick Actions edit mode with browser `localStorage` persistence.
 - Keyboard shortcuts for Quick Actions, Stop All, and fullscreen/focus mode.
 - Fullscreen/focus mode for distraction-reduced operation.
+- Optional Spotify controller for Premium accounts and Spotify Connect devices.
 - Dark theme for live operation environments.
 - Mobile-friendly layout for iPad and browser use.
 - Internationalization with `English (US)` and `Português (BR)`.
@@ -25,7 +26,7 @@ The project is designed for real meeting operation: quick access to common cues,
 - Timers for moments such as the education moment and main presentations.
 - Config import/export for moving preferences between browsers or devices.
 - iPad-first live operator interface improvements.
-- Optional Spotify controller panel, only if the Spotify Web API research confirms the workflow is reliable and safe for GitHub Pages.
+- Spotify playlist browsing and richer music automation.
 
 ## Architecture Constraints
 
@@ -62,6 +63,7 @@ The soundboard must remain useful even without Spotify. Spotify integration is a
 - `js/audio-engine.js`: Audio entry creation, playback, stop-all behavior, and volume updates.
 - `js/soundboard-renderer.js`: Soundboard category and sound button rendering.
 - `js/quick-actions.js`: Quick Actions rendering and persistence updates.
+- `js/spotify-controller.js`: Spotify PKCE auth, device discovery, transport controls, and music volume control.
 - `js/config-loader.js`: Static JSON resource loading.
 - `js/i18n.js`: Translation lookup helper.
 - `js/state.js`: Initial client-side state creation.
@@ -84,6 +86,7 @@ The soundboard must remain useful even without Spotify. Spotify integration is a
 - `Now Playing` shows the most recently triggered active cue.
 - Quick Actions are stored in browser `localStorage`.
 - Quick Actions can be triggered from the keyboard with the `QWERTYUIOPA` sequence.
+- Spotify control uses OAuth PKCE, browser storage, and the selected Spotify Connect device.
 - `Space` stops all active sounds.
 - `F` toggles fullscreen when supported, or focus mode as a fallback.
 
@@ -127,6 +130,44 @@ Use `mode: "exclusive"` for cues where one press should replace the current soun
 Selections are persisted in browser `localStorage`.
 
 Use `Reset` in edit mode to restore the repository default Quick Actions sequence after confirming the prompt.
+
+## Spotify Controller
+
+The Spotify panel is a first static implementation for controlling music that is already playing from a Spotify device. It does not make the iPad browser the Spotify player.
+
+Requirements:
+
+- Spotify Premium.
+- A Spotify app created in the Spotify Developer Dashboard.
+- The Spotify app Client ID.
+- Redirect URIs registered for each deployment URL you use.
+- A Spotify device open and available through Spotify Connect.
+
+For local testing with the default server, register this redirect URI:
+
+```text
+http://localhost:8000/
+```
+
+If you test from another local URL, register that exact URL too, for example:
+
+```text
+http://127.0.0.1:8012/
+```
+
+For production, register the GitHub Pages URL for the app.
+
+Use the Spotify panel:
+
+1. Paste the Spotify app Client ID.
+2. Click `Save`.
+3. Click `Connect` and approve the Spotify permissions.
+4. Open Spotify on the target device.
+5. Click `Refresh`.
+6. Select the device.
+7. Use `Transfer`, `Play`, `Pause`, `Prev`, `Next`, and `Music Volume`.
+
+Do not store a Spotify Client Secret in this repository or in the browser. This app uses Authorization Code with PKCE because it is designed for static browser apps where a secret cannot be safely stored.
 
 ## Operator Shortcuts
 

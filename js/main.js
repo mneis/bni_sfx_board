@@ -1,12 +1,12 @@
-import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.08.2';
-import { loadAppResources } from './config-loader.js?v=2026.06.08.2';
-import { createFullscreenController } from './fullscreen.js?v=2026.06.08.2';
-import { t as translate } from './i18n.js?v=2026.06.08.2';
-import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.08.2';
-import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.08.2';
-import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.08.2';
-import { createInitialState } from './state.js?v=2026.06.08.2';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.08.2';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.17.1';
+import { loadAppResources } from './config-loader.js?v=2026.06.17.1';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.17.1';
+import { t as translate } from './i18n.js?v=2026.06.17.1';
+import { bindKeyboardShortcuts } from './keyboard-shortcuts.js?v=2026.06.17.1';
+import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.17.1';
+import { createSoundCard as buildSoundCard, renderSoundboard } from './soundboard-renderer.js?v=2026.06.17.1';
+import { createInitialState } from './state.js?v=2026.06.17.1';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.17.1';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {
@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         masterVolume: dom.volumeSlider ? Number(dom.volumeSlider.value) : 1
     });
     let fullscreenController = null;
+    const keyboardDiagnostics = createKeyboardDiagnostics();
 
     if (dom.localeSelector) {
         dom.localeSelector.value = state.locale;
@@ -57,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
             getQuickActionEntries: () => getQuickActionEntries(state),
             onTriggerEntry: toggleEntry,
             onStopAll: () => stopAllAudio(state, { updateNowPlaying }),
-            onToggleFullscreen: () => fullscreenController.toggle()
+            onToggleFullscreen: () => fullscreenController.toggle(),
+            onShortcutEvent: reportKeyboardShortcut
         });
 
         setupTouchGestureGuards();
@@ -95,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 state.locale = dom.localeSelector.value;
                 saveLocale(state.locale);
                 renderEverything();
+                dom.localeSelector.blur();
             });
         }
 
@@ -244,6 +247,15 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             event.stopImmediatePropagation();
         }, true);
+
+        document.addEventListener('click', event => {
+            if (event.detail <= 0 || !(event.target instanceof Element)) return;
+
+            const focusedControl = event.target.closest('button, input[type="range"]');
+            if (focusedControl) {
+                window.setTimeout(() => focusedControl.blur(), 0);
+            }
+        });
     }
 
     function suppressTouchClicks() {
@@ -306,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dom.volumeSliderShell.hasPointerCapture(event.pointerId)) {
                 dom.volumeSliderShell.releasePointerCapture(event.pointerId);
             }
+            dom.volumeSlider.blur();
         };
 
         dom.volumeSliderShell.addEventListener('pointerup', stopDragging);
@@ -394,7 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function toggleEntry(entry) {
-        playEntry(state, entry, { updateNowPlaying });
+        playEntry(state, entry, {
+            updateNowPlaying,
+            onPlaybackError: reportAudioPlaybackError
+        });
     }
 
     function updateNowPlaying() {
@@ -460,5 +476,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function t(path, fallback) {
         return translate(state.locales, state.locale, path, fallback);
+    }
+
+    function reportKeyboardShortcut(details) {
+        if (keyboardDiagnostics) {
+            keyboardDiagnostics.record('shortcut', details);
+        }
+    }
+
+    function reportAudioPlaybackError({ entry, error }) {
+        if (!keyboardDiagnostics) return;
+
+        keyboardDiagnostics.record('audio-playback-error', {
+            entryId: entry ? entry.id : '',
+            errorName: error && error.name ? error.name : '',
+            errorMessage: error && error.message ? error.message : String(error)
+        });
+    }
+
+    function createKeyboardDiagnostics() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('debug') !== 'keyboard') return null;
+
+        const events = [];
+        const api = {
+            events,
+            dump() {
+                console.table(events);
+                return events;
+            },
+            clear() {
+                events.length = 0;
+            }
+        };
+
+        window.__bniKeyboardDebug = api;
+        console.info('BNI keyboard diagnostics enabled. Use window.__bniKeyboardDebug.dump() to inspect events.');
+
+        return {
+            record(type, details) {
+                const item = {
+                    at: new Date().toISOString(),
+                    type,
+                    hasFocus: document.hasFocus(),
+                    visibility: document.visibilityState,
+                    ...details
+                };
+
+                events.push(item);
+                if (events.length > 120) {
+                    events.shift();
+                }
+
+                console.debug('[BNI keyboard]', item);
+            }
+        };
     }
 });

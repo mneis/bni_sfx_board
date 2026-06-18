@@ -1,0 +1,14 @@
+{
+  "name": "bni-sfx-board",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "node scripts/serve-static.mjs",
+    "test:e2e": "node scripts/run-playwright.mjs",
+    "test:keyboard": "node scripts/run-playwright.mjs tests/keyboard-shortcuts.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0"
+  }
+}

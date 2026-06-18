@@ -140,6 +140,9 @@ function startPlaybackInstance(state, entry, callbacks) {
         })
         .catch(error => {
             console.error('Error playing audio:', error);
+            if (callbacks.onPlaybackError) {
+                callbacks.onPlaybackError({ entry, error });
+            }
             cleanupPlaybackInstance(state, instance, callbacks, { updateLabel: true });
         });
 }

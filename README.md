@@ -168,6 +168,35 @@ Then open:
 http://localhost:8000
 ```
 
+If Node dependencies are installed, the repository static server can also be used:
+
+```bash
+npm run serve
+```
+
+## Browser Tests
+
+Playwright tests cover the keyboard shortcut path used by iPad external keyboard operation.
+
+Install the test dependencies once:
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+Run the keyboard shortcut smoke test:
+
+```bash
+npm run test:keyboard
+```
+
+Run all browser tests:
+
+```bash
+npm run test:e2e
+```
+
 ## Release Flow
 
 Use the staging workflow for changes:

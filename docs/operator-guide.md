@@ -33,6 +33,7 @@ Spotify integration is optional and planned for a future version. The soundboard
 - Use Reset in Quick Actions edit mode if an old browser setup should return to the repository defaults.
 - Collapse or expand Quick Actions based on how much screen space you want.
 - Test the Quick Action shortcut keys in `QWERTYUIOPA` order. Extra pinned actions continue with the remaining keyboard letters, skipping `F`.
+- On iPad with an external keyboard, test both repeated taps and a brief held key so shortcut repeat behavior is confirmed before the meeting.
 - Test `Space` for Stop All.
 - Test `F` for fullscreen or focus mode.
 - Open Spotify on the MacBook if you use meeting playlists.
@@ -45,6 +46,7 @@ Spotify integration is optional and planned for a future version. The soundboard
 - Use Quick Actions for the cues you expect to use most often.
 - Use `QWERTYUIOPA` to trigger Quick Actions from a physical keyboard or macro pad. Extra pinned actions receive the next available letter badge.
 - Use `F` to enter fullscreen or focus mode when you want fewer visual distractions.
+- If external keyboard shortcuts become inconsistent during testing, reload with `?debug=keyboard` and inspect `window.__bniKeyboardDebug.dump()` from the browser console after reproducing it.
 - Use applause after recognitions, testimonials, guest moments, and presentations.
 - Use transition sounds only after the speaker finishes.
 - Keep music low during speaking moments.

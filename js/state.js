@@ -1,4 +1,4 @@
-import { loadDockPosition, loadLocale, loadQuickActions, loadQuickMinimized } from './storage.js?v=2026.06.03.3';
+import { loadDockPosition, loadLocale, loadQuickActions, loadQuickMinimized } from './storage.js?v=2026.06.17.1';
 
 export function createInitialState({ masterVolume }) {
     return {
@@ -17,7 +17,16 @@ export function createInitialState({ masterVolume }) {
             pointerId: null,
             offsetX: 0,
             offsetY: 0,
-            width: null
+            width: null,
+            startX: 0,
+            startY: 0,
+            moved: false
+        },
+        touchGuard: {
+            pointerId: null,
+            startX: 0,
+            startY: 0,
+            suppressClicksUntil: 0
         },
         dockTapLastAt: 0
     };

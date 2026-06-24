@@ -1,10 +1,14 @@
 :root {
-    --bg-color: #090b10;
-    --bg-secondary: #0f1420;
-    --panel-color: #151b2b;
-    --panel-border: #252f46;
-    --text-color: #f3f6ff;
-    --muted-color: #aeb8d1;
+    --brand-green: #5fad41;
+    --brand-ink: #04080f;
+    --brand-cream: #f8ffe5;
+    --brand-orange: #f05d23;
+    --bg-color: #04080f;
+    --bg-secondary: #081018;
+    --panel-color: #0d141d;
+    --panel-border: rgba(95, 173, 65, 0.24);
+    --text-color: var(--brand-cream);
+    --muted-color: #b7c2b0;
     --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.35);
     --shadow-strong: 0 14px 30px rgba(0, 0, 0, 0.45);
 }
@@ -14,10 +18,10 @@
 }
 
 body {
-    font-family: 'Avenir Next', 'Segoe UI', sans-serif;
+    font-family: 'Open Sans', 'Avenir Next', 'Segoe UI', sans-serif;
     background:
-        radial-gradient(circle at 5% 0%, rgba(37, 99, 235, 0.18), transparent 30%),
-        radial-gradient(circle at 95% 0%, rgba(22, 163, 74, 0.16), transparent 32%),
+        linear-gradient(135deg, rgba(95, 173, 65, 0.12), transparent 34%),
+        linear-gradient(225deg, rgba(240, 93, 35, 0.08), transparent 32%),
         linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-color) 70%);
     color: var(--text-color);
     margin: 0;
@@ -62,18 +66,37 @@ body.operator-focus .subtitulo {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    border-top: 3px solid var(--brand-green);
 }
 
 h1 {
     margin: 0;
     font-size: 1.8rem;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
+    font-family: 'Zilla Slab', Georgia, 'Times New Roman', serif;
 }
 
 .subtitulo {
     margin: 4px 0 0;
     color: var(--muted-color);
     font-weight: 600;
+}
+
+.brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.brand-mark {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: var(--brand-ink);
+    box-shadow: 0 0 0 1px rgba(95, 173, 65, 0.24);
+    flex: 0 0 auto;
 }
 
 .controles-globais {
@@ -112,9 +135,9 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 */
 
 .dock-handle {
-    border: 1px solid #334155;
-    background: #0f172a;
-    color: #93c5fd;
+    border: 1px solid rgba(95, 173, 65, 0.34);
+    background: var(--brand-ink);
+    color: var(--brand-green);
     border-radius: 8px;
     height: 30px;
     width: 54px;
@@ -179,13 +202,13 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 
 .language-switch select,
 .controle-volume input {
-    accent-color: #22d3ee;
+    accent-color: var(--brand-green);
 }
 
 .language-switch select {
-    background: #0f172a;
-    color: #e2e8f0;
-    border: 1px solid #334155;
+    background: var(--brand-ink);
+    color: var(--brand-cream);
+    border: 1px solid rgba(95, 173, 65, 0.34);
     border-radius: 8px;
     padding: 8px 10px;
 }
@@ -215,8 +238,8 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     min-height: 56px;
     padding: 0 6px;
     border-radius: 14px;
-    background: rgba(15, 23, 42, 0.78);
-    border: 1px solid #334155;
+    background: rgba(4, 8, 15, 0.78);
+    border: 1px solid rgba(95, 173, 65, 0.28);
     display: flex;
     align-items: center;
     min-width: 0;
@@ -226,9 +249,9 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     font-size: 0.76rem;
     font-weight: 900;
     letter-spacing: 0.35px;
-    color: #cffafe;
-    background: rgba(8, 47, 73, 0.88);
-    border: 1px solid rgba(34, 211, 238, 0.32);
+    color: var(--brand-cream);
+    background: rgba(38, 73, 31, 0.88);
+    border: 1px solid rgba(95, 173, 65, 0.38);
     border-radius: 999px;
     padding: 3px 8px;
     line-height: 1;
@@ -238,9 +261,9 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     height: 48px;
     width: 48px;
     border-radius: 10px;
-    border: 1px solid #334155;
-    background: #1e293b;
-    color: #e2e8f0;
+    border: 1px solid rgba(95, 173, 65, 0.3);
+    background: #172218;
+    color: var(--brand-cream);
     font-size: 1.3rem;
     font-weight: 900;
     cursor: pointer;
@@ -255,8 +278,8 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     height: 18px;
     background: linear-gradient(
         90deg,
-        #22d3ee 0,
-        #22d3ee var(--volume-percent),
+        var(--brand-green) 0,
+        var(--brand-green) var(--volume-percent),
         #1f2937 var(--volume-percent),
         #1f2937 100%
     );
@@ -269,10 +292,10 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     width: 36px;
     height: 36px;
     border-radius: 999px;
-    background: #22d3ee;
-    border: 3px solid #0f172a;
+    background: var(--brand-green);
+    border: 3px solid var(--brand-ink);
     margin-top: -9px;
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18);
+    box-shadow: 0 0 0 4px rgba(95, 173, 65, 0.18);
 }
 
 .controle-volume input::-moz-range-track {
@@ -283,7 +306,7 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 
 .controle-volume input::-moz-range-progress {
     height: 18px;
-    background: #22d3ee;
+    background: var(--brand-green);
     border-radius: 999px;
 }
 
@@ -291,9 +314,9 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     width: 36px;
     height: 36px;
     border-radius: 999px;
-    background: #22d3ee;
-    border: 3px solid #0f172a;
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.18);
+    background: var(--brand-green);
+    border: 3px solid var(--brand-ink);
+    box-shadow: 0 0 0 4px rgba(95, 173, 65, 0.18);
 }
 
 .botao-controle,
@@ -332,7 +355,7 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: rgba(15, 23, 42, 0.72);
+    background: rgba(4, 8, 15, 0.72);
     border: 1px solid rgba(255, 255, 255, 0.42);
     color: #ffffff;
     font-size: 0.66rem;
@@ -340,8 +363,8 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 }
 
 .botao-secundario {
-    background: #1e293b;
-    border-color: #334155;
+    background: #172218;
+    border-color: rgba(95, 173, 65, 0.32);
 }
 
 .botao-perigo {
@@ -374,9 +397,9 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 .agora-tocando {
     display: block;
     font-weight: 700;
-    color: #67e8f9;
-    background: rgba(8, 47, 73, 0.65);
-    border: 1px solid rgba(34, 211, 238, 0.35);
+    color: var(--brand-cream);
+    background: rgba(38, 73, 31, 0.65);
+    border: 1px solid rgba(95, 173, 65, 0.34);
     padding: 8px 10px;
     border-radius: 8px;
     min-width: 0;
@@ -410,8 +433,9 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 
 .quick-actions h2 {
     margin: 0;
-    color: #e2e8f0;
+    color: var(--brand-cream);
     font-size: 1.1rem;
+    font-family: 'Zilla Slab', Georgia, 'Times New Roman', serif;
 }
 
 .quick-help {
@@ -434,10 +458,11 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 
 .categoria h2 {
     margin: 0 0 12px;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid rgba(95, 173, 65, 0.26);
     padding-bottom: 10px;
-    color: #dbeafe;
+    color: var(--brand-cream);
     font-size: 1.05rem;
+    font-family: 'Zilla Slab', Georgia, 'Times New Roman', serif;
 }
 
 .grid-botoes {
@@ -462,8 +487,8 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     height: 28px;
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(15, 23, 42, 0.84);
-    color: #f8fafc;
+    background: rgba(4, 8, 15, 0.84);
+    color: var(--brand-cream);
     font-size: 1rem;
     font-weight: 800;
     cursor: pointer;
@@ -511,7 +536,7 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    background: rgba(15, 23, 42, 0.72);
+    background: rgba(4, 8, 15, 0.78);
     border: 1px solid rgba(255, 255, 255, 0.42);
     color: #ffffff;
     font-size: 0.78rem;
@@ -553,7 +578,7 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
 .botao-tocando {
     animation: pulso-tocando 1.2s infinite;
     filter: brightness(1.2);
-    border: 3px solid #e2e8f0;
+    border: 3px solid var(--brand-cream);
     position: relative;
 }
 
@@ -565,7 +590,7 @@ Keep these groups explicit so volume never leaks and Now Playing does not collap
     font-size: 0.6rem;
     font-weight: 900;
     letter-spacing: 0.45px;
-    background: rgba(15, 23, 42, 0.72);
+    background: rgba(4, 8, 15, 0.76);
     padding: 3px 6px;
     border-radius: 999px;
 }

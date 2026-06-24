@@ -1,12 +1,12 @@
-import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.24.1';
-import { loadAppResources } from './config-loader.js?v=2026.06.24.1';
-import { createFullscreenController } from './fullscreen.js?v=2026.06.24.1';
-import { t as translate } from './i18n.js?v=2026.06.24.1';
-import { bindKeyboardShortcuts, getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.24.1';
-import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.24.1';
-import { createSoundCard as buildSoundCard, renderSoundboard, syncShortcutBadge } from './soundboard-renderer.js?v=2026.06.24.1';
-import { createInitialState } from './state.js?v=2026.06.24.1';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.24.1';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.24.2';
+import { loadAppResources } from './config-loader.js?v=2026.06.24.2';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.24.2';
+import { t as translate } from './i18n.js?v=2026.06.24.2';
+import { bindKeyboardShortcuts, getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.24.2';
+import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.24.2';
+import { createSoundCard as buildSoundCard, renderSoundboard, syncShortcutBadge } from './soundboard-renderer.js?v=2026.06.24.2';
+import { createInitialState } from './state.js?v=2026.06.24.2';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.24.2';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {

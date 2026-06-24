@@ -1,5 +1,4 @@
-import { createAudioEntry } from './audio-engine.js?v=2026.06.17.1';
-import { getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.17.1';
+import { createAudioEntry } from './audio-engine.js?v=2026.06.24.1';
 
 export function renderSoundboard({ container, state, getCategoryLabel, createSoundCard }) {
     container.innerHTML = '';
@@ -31,7 +30,7 @@ export function renderSoundboard({ container, state, getCategoryLabel, createSou
     });
 }
 
-export function createSoundCard({ entry, isQuickAction, quickActionIndex, state, getButtonLabel, isMajorCue, onToggleEntry, onToggleQuickAction, t }) {
+export function createSoundCard({ entry, isQuickAction, shortcutKey, state, getButtonLabel, isMajorCue, onToggleEntry, onToggleQuickAction, t }) {
     const card = document.createElement('div');
     card.className = 'sound-item';
 
@@ -52,13 +51,7 @@ export function createSoundCard({ entry, isQuickAction, quickActionIndex, state,
     label.textContent = getButtonLabel(entry);
     button.appendChild(label);
 
-    const shortcutKey = isQuickAction ? getShortcutKeyForQuickAction(quickActionIndex) : null;
-    if (shortcutKey) {
-        const badge = document.createElement('span');
-        badge.className = 'shortcut-badge';
-        badge.textContent = shortcutKey;
-        button.appendChild(badge);
-    }
+    syncShortcutBadge(button, shortcutKey);
 
     button.addEventListener('click', () => {
         onToggleEntry(entry);
@@ -82,6 +75,25 @@ export function createSoundCard({ entry, isQuickAction, quickActionIndex, state,
     }
 
     return card;
+}
+
+export function syncShortcutBadge(button, shortcutKey) {
+    let badge = button.querySelector('.shortcut-badge');
+
+    if (!shortcutKey) {
+        if (badge) {
+            badge.remove();
+        }
+        return;
+    }
+
+    if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'shortcut-badge';
+        button.appendChild(badge);
+    }
+
+    badge.textContent = shortcutKey;
 }
 
 function updatePinButton(button, isPinned, t) {

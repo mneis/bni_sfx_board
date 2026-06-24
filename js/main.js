@@ -1,12 +1,12 @@
-import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.24.2';
-import { loadAppResources } from './config-loader.js?v=2026.06.24.2';
-import { createFullscreenController } from './fullscreen.js?v=2026.06.24.2';
-import { t as translate } from './i18n.js?v=2026.06.24.2';
-import { bindKeyboardShortcuts, getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.24.2';
-import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.24.2';
-import { createSoundCard as buildSoundCard, renderSoundboard, syncShortcutBadge } from './soundboard-renderer.js?v=2026.06.24.2';
-import { createInitialState } from './state.js?v=2026.06.24.2';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.24.2';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.24.3';
+import { loadAppResources } from './config-loader.js?v=2026.06.24.3';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.24.3';
+import { t as translate } from './i18n.js?v=2026.06.24.3';
+import { bindKeyboardShortcuts, getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.24.3';
+import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.24.3';
+import { createSoundCard as buildSoundCard, renderSoundboard, syncShortcutBadge } from './soundboard-renderer.js?v=2026.06.24.3';
+import { createInitialState } from './state.js?v=2026.06.24.3';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.24.3';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {
@@ -458,12 +458,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateStaticTexts() {
         setText('title', t('ui.title', 'BNI Soundboard'));
+        setText('brand-kicker', t('ui.brandKicker', 'CP Tecnologia'));
+        setText('console-label', t('ui.consoleLabel', 'BNI Energy Desk'));
+        setText('live-mode-label', t('ui.liveMode', 'Live meeting mode'));
         setText('subtitle', t('ui.subtitle', 'Live audio operation for BNI meetings'));
         setText('language-label', t('ui.language', 'Language'));
         setText('stop-all', t('ui.stopAll', 'Stop All'));
         setText('volume-label', t('ui.volume', 'Volume'));
+        setText('quick-kicker', t('ui.quickKicker', 'Live cue deck'));
         setText('quick-title', t('ui.quickActions', 'Quick Actions'));
-        setText('quick-help', t('ui.quickHelp', 'Shortcuts for your most used effects during the meeting.'));
+        setText('quick-help', t('ui.quickHelp', 'High-energy cues for the moments that need speed.'));
 
         if (dom.quickEditButton) {
             dom.quickEditButton.textContent = state.quickEditing ? t('ui.quickDone', 'Done') : t('ui.quickEdit', 'Edit');

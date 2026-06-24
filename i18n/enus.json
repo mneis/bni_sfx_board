@@ -1,6 +1,9 @@
 {
   "ui": {
     "title": "BNI Soundboard",
+    "brandKicker": "CP Tecnologia",
+    "consoleLabel": "BNI Energy Desk",
+    "liveMode": "Live meeting mode",
     "subtitle": "Live audio operation for BNI meetings",
     "language": "Language",
     "stopAll": "Stop All",
@@ -10,7 +13,8 @@
     "nowPlaying": "Now Playing",
     "none": "-",
     "quickActions": "Quick Actions",
-    "quickHelp": "Shortcuts for your most used effects during the meeting.",
+    "quickKicker": "Live cue deck",
+    "quickHelp": "High-energy cues for the moments that need speed.",
     "quickEdit": "Edit",
     "quickDone": "Done",
     "quickReset": "Reset",

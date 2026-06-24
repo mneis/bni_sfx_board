@@ -1,4 +1,4 @@
-import { APP_VERSION } from './app-version.js?v=2026.06.24.2';
+import { APP_VERSION } from './app-version.js?v=2026.06.24.3';
 
 async function fetchJson(url) {
     const versionedUrl = `${url}?v=${encodeURIComponent(APP_VERSION)}`;

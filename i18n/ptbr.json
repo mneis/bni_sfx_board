@@ -1,7 +1,10 @@
 {
   "ui": {
     "title": "Soundboard BNI",
-    "subtitle": "Operação de áudio ao vivo para reuniões BNI",
+    "brandKicker": "CP Tecnologia",
+    "consoleLabel": "Mesa BNI Energy",
+    "liveMode": "Modo reuni\u00e3o ao vivo",
+    "subtitle": "Opera\u00e7\u00e3o de \u00e1udio ao vivo para reuni\u00f5es BNI",
     "language": "Idioma",
     "stopAll": "Parar Tudo",
     "fullscreen": "Tela Cheia",
@@ -9,12 +12,13 @@
     "volume": "Volume",
     "nowPlaying": "Tocando Agora",
     "none": "-",
-    "quickActions": "Ações Rápidas",
-    "quickHelp": "Atalhos dos efeitos mais usados durante a reunião.",
+    "quickActions": "A\u00e7\u00f5es R\u00e1pidas",
+    "quickKicker": "Deck de efeitos ao vivo",
+    "quickHelp": "Efeitos principais para momentos que pedem agilidade.",
     "quickEdit": "Editar",
     "quickDone": "Concluir",
     "quickReset": "Restaurar",
-    "quickResetConfirm": "Restaurar as Ações Rápidas para a sequência padrão?",
+    "quickResetConfirm": "Restaurar as A\u00e7\u00f5es R\u00e1pidas para a sequ\u00eancia padr\u00e3o?",
     "quickMinimize": "Minimizar",
     "quickExpand": "Expandir",
     "pin": "Fixar",
@@ -22,11 +26,11 @@
   },
   "categories": {
     "opening_energy": "Abertura e Energia",
-    "transitions_pace": "Transições e Ritmo",
-    "suspense_tension": "Suspense e Tensão",
+    "transitions_pace": "Transi\u00e7\u00f5es e Ritmo",
+    "suspense_tension": "Suspense e Tens\u00e3o",
     "error_breaks": "Erro e Quebra",
-    "business_tyfcb": "Negócios e TYFCB",
-    "final_celebration": "Celebração Final"
+    "business_tyfcb": "Neg\u00f3cios e TYFCB",
+    "final_celebration": "Celebra\u00e7\u00e3o Final"
   },
   "buttons": {
     "tada_entry": "Tada (Entrada)",
@@ -36,15 +40,15 @@
     "whoosh_transition": "Whoosh (Troca de Momento)",
     "idea_share": "Ideia do Membro",
     "teaching_moment": "Ensinamento do Membro",
-    "heartbeat": "Batimento Cardíaco",
+    "heartbeat": "Batimento Card\u00edaco",
     "suspense_sudden": "Suspense Repentino",
     "buzzer_error": "Buzzer de Erro",
     "windows_error": "Erro do Windows",
     "faustao_wrong": "Errou",
     "record_scratch": "Record Scratch (Pausa)",
-    "psycho_violin_screech": "Violino de Terror (Tensão)",
-    "kaching_deal": "Ka-Ching (Negócio Fechado)",
+    "psycho_violin_screech": "Violino de Terror (Tens\u00e3o)",
+    "kaching_deal": "Ka-Ching (Neg\u00f3cio Fechado)",
     "money_value": "Money (Entrada de Valor)",
-    "victory_theme": "Tema da Vitória"
+    "victory_theme": "Tema da Vit\u00f3ria"
   }
 }

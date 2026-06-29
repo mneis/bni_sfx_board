@@ -77,7 +77,11 @@ export function loadDockPosition() {
             Number.isFinite(parsed.x) &&
             Number.isFinite(parsed.y)
         ) {
-            return { x: parsed.x, y: parsed.y };
+            return {
+                x: parsed.x,
+                y: parsed.y,
+                layoutMode: typeof parsed.layoutMode === 'string' ? parsed.layoutMode : null
+            };
         }
         return null;
     } catch {

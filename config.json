@@ -2,7 +2,7 @@
   "categorias": [
     {
       "id": "opening_energy",
-      "cor_padrao": "#2563eb",
+      "cor_padrao": "#f3ba2f",
       "botoes": [
         {
           "id": "tada_entry",
@@ -38,7 +38,7 @@
     },
     {
       "id": "transitions_pace",
-      "cor_padrao": "#0ea5e9",
+      "cor_padrao": "#f05d23",
       "botoes": [
         {
           "id": "whoosh_transition",
@@ -56,7 +56,7 @@
     },
     {
       "id": "error_breaks",
-      "cor_padrao": "#dc2626",
+      "cor_padrao": "#c8262f",
       "botoes": [
         {
           "id": "record_scratch",
@@ -78,7 +78,7 @@
     },
     {
       "id": "business_tyfcb",
-      "cor_padrao": "#16a34a",
+      "cor_padrao": "#5fad41",
       "botoes": [
         {
           "id": "kaching_deal",
@@ -92,7 +92,7 @@
     },
     {
       "id": "suspense_tension",
-      "cor_padrao": "#7c3aed",
+      "cor_padrao": "#7a4cff",
       "botoes": [
         {
           "id": "heartbeat",
@@ -118,7 +118,7 @@
     },
     {
       "id": "final_celebration",
-      "cor_padrao": "#f59e0b",
+      "cor_padrao": "#f3ba2f",
       "botoes": [
         {
           "id": "victory_theme",

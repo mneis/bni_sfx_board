@@ -3,47 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BNI Soundboard</title>
-    <link rel="stylesheet" href="style.css?v=2026.06.24.1">
+    <title>BNI Soundboard | CP Tecnologia</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png?v=2026.06.24.5">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png?v=2026.06.24.5">
+    <link rel="stylesheet" href="style.css?v=2026.06.24.5">
 </head>
 <body>
-    <header class="topo">
-        <div>
-            <h1 id="title">BNI Soundboard</h1>
-            <p id="subtitle" class="subtitulo">Live audio operation for BNI meetings</p>
-        </div>
-        <div class="controles-globais">
-            <label class="language-switch" for="locale-selector">
-                <span id="language-label">Language</span>
-                <select id="locale-selector">
-                    <option value="enus">English (US)</option>
-                    <option value="ptbr">Português (BR)</option>
-                </select>
-            </label>
-        </div>
-    </header>
-
-    <section class="quick-actions" id="quick-actions">
-        <div class="quick-header">
-            <h2 id="quick-title">Quick Actions</h2>
-            <div class="quick-controls">
-                <button id="quick-edit" class="botao-secundario">Edit</button>
-                <button id="quick-reset" class="botao-secundario botao-perigo">Reset</button>
-                <button id="quick-toggle" class="botao-secundario">Minimize</button>
+    <div class="page-shell">
+        <header class="topo">
+            <div class="brand-lockup">
+                <span class="brand-mark-shell" aria-hidden="true">
+                    <img class="brand-mark" src="assets/brand/cp-icon.png?v=2026.06.24.5" alt="" width="56" height="56">
+                </span>
+                <div class="brand-copy">
+                    <span id="brand-kicker" class="brand-kicker">CP Tecnologia</span>
+                    <h1 id="title">BNI Soundboard</h1>
+                    <p id="subtitle" class="subtitulo">Live audio operation for BNI meetings</p>
+                </div>
             </div>
-        </div>
-        <p id="quick-help" class="quick-help">Shortcuts for your most used effects during the meeting.</p>
-        <div id="quick-actions-grid" class="grid-botoes grid-quick"></div>
-    </section>
+            <div class="header-actions">
+                <div class="meeting-badge" aria-label="BNI meeting console">
+                    <span class="meeting-dot" aria-hidden="true"></span>
+                    <span id="console-label">BNI Meeting Mode</span>
+                    <small id="live-mode-label">Live meeting mode</small>
+                </div>
+                <div class="controles-globais">
+                    <label class="language-switch" for="locale-selector">
+                        <span id="language-label">Language</span>
+                        <select id="locale-selector">
+                            <option value="enus">English (US)</option>
+                            <option value="ptbr">Portugu&ecirc;s (BR)</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </header>
 
-    <main id="soundboard-container">
-    </main>
+        <section class="quick-actions" id="quick-actions">
+            <div class="quick-header">
+                <div class="section-title-stack">
+                    <span id="quick-kicker" class="section-kicker">Live cue deck</span>
+                    <h2 id="quick-title">Quick Actions</h2>
+                </div>
+                <div class="quick-controls">
+                    <button id="quick-edit" class="botao-secundario">Edit</button>
+                    <button id="quick-reset" class="botao-secundario botao-perigo">Reset</button>
+                    <button id="quick-toggle" class="botao-secundario">Minimize</button>
+                </div>
+            </div>
+            <p id="quick-help" class="quick-help">High-energy cues for the moments that need speed.</p>
+            <div id="quick-actions-grid" class="grid-botoes grid-quick"></div>
+        </section>
+
+        <main id="soundboard-container">
+        </main>
+    </div>
 
     <section class="control-dock" aria-label="Live Controls">
-        <button id="dock-handle" class="dock-handle" type="button" aria-label="Drag controls" title="Drag controls">⋮⋮</button>
+        <button id="dock-handle" class="dock-handle" type="button" aria-label="Drag controls" title="Drag controls">&#8942;&#8942;</button>
         <div class="control-main">
             <button id="stop-all" class="botao-controle">Stop All</button>
-            <button id="fullscreen-toggle" class="botao-secundario botao-fullscreen" type="button" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+            <button id="fullscreen-toggle" class="botao-secundario botao-fullscreen" type="button" aria-label="Fullscreen" title="Fullscreen">&#9974;</button>
             <label class="controle-volume" for="volume-master">
                 <div class="volume-label-stack">
                     <span id="volume-label">Volume</span>
@@ -61,6 +81,6 @@
         <span id="now-playing" class="agora-tocando">Now Playing: -</span>
     </section>
 
-    <script type="module" src="js/main.js?v=2026.06.24.1"></script>
+    <script type="module" src="js/main.js?v=2026.06.24.5"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { APP_VERSION } from './app-version.js?v=2026.06.24.3';
+import { APP_VERSION } from './app-version.js?v=2026.06.24.4';
 
 async function fetchJson(url) {
     const versionedUrl = `${url}?v=${encodeURIComponent(APP_VERSION)}`;
@@ -8,7 +8,6 @@ async function fetchJson(url) {
     }
     return response.json();
 }
-
 export async function loadAppResources() {
     const [config, enus, ptbr] = await Promise.all([
         fetchJson('config.json'),

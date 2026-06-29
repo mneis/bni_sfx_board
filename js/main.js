@@ -1,12 +1,12 @@
-import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.24.3';
-import { loadAppResources } from './config-loader.js?v=2026.06.24.3';
-import { createFullscreenController } from './fullscreen.js?v=2026.06.24.3';
-import { t as translate } from './i18n.js?v=2026.06.24.3';
-import { bindKeyboardShortcuts, getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.24.3';
-import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.24.3';
-import { createSoundCard as buildSoundCard, renderSoundboard, syncShortcutBadge } from './soundboard-renderer.js?v=2026.06.24.3';
-import { createInitialState } from './state.js?v=2026.06.24.3';
-import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.24.3';
+import { applyMasterVolume, playEntry, stopAllAudio } from './audio-engine.js?v=2026.06.24.4';
+import { loadAppResources } from './config-loader.js?v=2026.06.24.4';
+import { createFullscreenController } from './fullscreen.js?v=2026.06.24.4';
+import { t as translate } from './i18n.js?v=2026.06.24.4';
+import { bindKeyboardShortcuts, getShortcutKeyForQuickAction } from './keyboard-shortcuts.js?v=2026.06.24.4';
+import { getQuickActionEntries, renderQuickActions, resetQuickActions, toggleQuickAction } from './quick-actions.js?v=2026.06.24.4';
+import { createSoundCard as buildSoundCard, renderSoundboard, syncShortcutBadge } from './soundboard-renderer.js?v=2026.06.24.4';
+import { createInitialState } from './state.js?v=2026.06.24.4';
+import { clearDockPosition, saveDockPosition, saveLocale, saveQuickMinimized } from './storage.js?v=2026.06.24.4';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dom = {
@@ -138,6 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupDockDrag() {
         if (!dom.controlDock || !dom.dockHandle) return;
 
+        if (shouldUseLinearDockLayout()) {
+            resetDockPosition();
+        }
         applyDockPosition();
 
         dom.dockHandle.addEventListener('pointerdown', event => {
@@ -215,6 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('resize', () => {
             if (!state.dockPosition) return;
+            if (shouldUseLinearDockLayout()) {
+                resetDockPosition();
+                return;
+            }
             state.dockPosition = clampDockPosition(state.dockPosition.x, state.dockPosition.y);
             applyDockPosition();
             saveDockPosition(state.dockPosition);
@@ -344,6 +351,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyDockPosition() {
         if (!dom.controlDock || !state.dockPosition) return;
+        if (shouldUseLinearDockLayout()) {
+            resetDockPosition();
+            return;
+        }
         const next = clampDockPosition(state.dockPosition.x, state.dockPosition.y);
         state.dockPosition = next;
         dom.controlDock.classList.add('is-floating');
@@ -363,6 +374,10 @@ document.addEventListener('DOMContentLoaded', () => {
             x: Math.min(Math.max(margin, Math.round(x)), maxX),
             y: Math.min(Math.max(margin, Math.round(y)), maxY)
         };
+    }
+
+    function shouldUseLinearDockLayout() {
+        return window.matchMedia('(min-width: 981px)').matches;
     }
 
     function renderEverything() {
@@ -459,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateStaticTexts() {
         setText('title', t('ui.title', 'BNI Soundboard'));
         setText('brand-kicker', t('ui.brandKicker', 'CP Tecnologia'));
-        setText('console-label', t('ui.consoleLabel', 'BNI Energy Desk'));
+        setText('console-label', t('ui.consoleLabel', 'BNI Meeting Mode'));
         setText('live-mode-label', t('ui.liveMode', 'Live meeting mode'));
         setText('subtitle', t('ui.subtitle', 'Live audio operation for BNI meetings'));
         setText('language-label', t('ui.language', 'Language'));

@@ -1,4 +1,4 @@
-import { createAudioEntry } from './audio-engine.js?v=2026.06.24.1';
+import { createAudioEntry } from './audio-engine.js?v=2026.06.24.5';
 
 export function renderSoundboard({ container, state, getCategoryLabel, createSoundCard }) {
     container.innerHTML = '';
@@ -7,6 +7,8 @@ export function renderSoundboard({ container, state, getCategoryLabel, createSou
     state.config.categorias.forEach(categoria => {
         const section = document.createElement('section');
         section.className = 'categoria';
+        section.dataset.categoryId = categoria.id;
+        section.style.setProperty('--category-accent', categoria.cor_padrao || '#5fad41');
 
         const title = document.createElement('h2');
         title.textContent = getCategoryLabel(categoria);
@@ -33,6 +35,7 @@ export function renderSoundboard({ container, state, getCategoryLabel, createSou
 export function createSoundCard({ entry, isQuickAction, shortcutKey, state, getButtonLabel, isMajorCue, onToggleEntry, onToggleQuickAction, t }) {
     const card = document.createElement('div');
     card.className = 'sound-item';
+    card.style.setProperty('--sound-accent', entry.cor);
 
     const button = document.createElement('button');
     button.className = 'botao-som';
@@ -43,7 +46,7 @@ export function createSoundCard({ entry, isQuickAction, shortcutKey, state, getB
         button.classList.add('botao-major');
     }
 
-    button.style.backgroundColor = entry.cor;
+    button.style.setProperty('--sound-accent', entry.cor);
     button.setAttribute('aria-label', getButtonLabel(entry));
 
     const label = document.createElement('span');

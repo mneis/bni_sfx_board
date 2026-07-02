@@ -1,4 +1,4 @@
-import { createAudioEntry } from './audio-engine.js?v=2026.06.24.5';
+import { createAudioEntry } from './audio-engine.js?v=2026.07.02.1';
 
 export function renderSoundboard({ container, state, getCategoryLabel, createSoundCard }) {
     container.innerHTML = '';

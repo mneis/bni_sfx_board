@@ -82,7 +82,7 @@
       "botoes": [
         {
           "id": "kaching_deal",
-          "url": "audio/kaching-sound-fx.mp3"
+          "url": "audio/kaching-sound-fx-normalized.wav"
         },
         {
           "id": "money_value",

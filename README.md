@@ -53,6 +53,7 @@ The soundboard must remain useful even without Spotify. Spotify integration is a
 
 - [Operator guide](docs/operator-guide.md): Prepare the iPad, test audio, run the board during a meeting, and recover quickly if something goes wrong.
 - [Release checklist](docs/release-checklist.md): Verify staging changes before merging into production.
+- [Spotify feasibility](docs/spotify-feasibility.md): Research notes for optional Spotify control from the iPad-hosted app.
 
 ## Project Structure
 
